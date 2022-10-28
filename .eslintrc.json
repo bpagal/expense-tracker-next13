@@ -3,6 +3,7 @@
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -15,6 +16,7 @@
         "endOfLine": "auto",
         "singleQuote": true
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off"
   }
 }
