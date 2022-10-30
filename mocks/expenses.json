@@ -1,0 +1,58 @@
+[
+  {
+    "date": "12/3/2021",
+    "amount": 500,
+    "account": "CIMB Savings",
+    "category": "Gifts",
+    "remarks": "Secret Santa exchange gift"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 2347,
+    "account": "CIMB Savings",
+    "category": "Dining Out",
+    "remarks": "Nono's Kitchen food"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 400,
+    "account": "CIMB Savings",
+    "category": "Dining Out",
+    "remarks": "Tim Hortons"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 650,
+    "account": "CIMB Savings",
+    "category": "Fun Money",
+    "remarks": "Foot rest"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 488,
+    "account": "CIMB Savings",
+    "category": "Dining Out",
+    "remarks": "Jollibee Tuna Pie and Big Better Burgers"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 425,
+    "account": "CIMB Savings",
+    "category": "Gifts",
+    "remarks": "Daster gift yaya"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 750,
+    "account": "CIMB Savings",
+    "category": "Fun Money",
+    "remarks": "Omni Power Strip"
+  },
+  {
+    "date": "12/3/2021",
+    "amount": 280,
+    "account": "CIMB Savings",
+    "category": "Fun Money",
+    "remarks": "3M Command Strips"
+  }
+]
