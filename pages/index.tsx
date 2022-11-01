@@ -6,7 +6,8 @@ import {
   Th,
   Td,
   TableContainer,
-  Center,
+  Heading,
+  Flex,
 } from '@chakra-ui/react';
 import expenses from '../mocks/expenses.json';
 
@@ -21,9 +22,10 @@ interface Expense {
 export default function Home() {
   const allExpenses: Expense[] = expenses;
   return (
-    <Center w={'100%'}>
-      <TableContainer>
-        <Table variant="striped" colorScheme="teal">
+    <Flex mt={'50px'} direction="column" alignItems={'center'}>
+      <Heading mb={'10px'}>November</Heading>
+      <TableContainer border="1px solid white" maxWidth={'90%'}>
+        <Table variant="striped" colorScheme="blue">
           <Thead>
             <Tr>
               <Th>date</Th>
@@ -46,6 +48,6 @@ export default function Home() {
           </Tbody>
         </Table>
       </TableContainer>
-    </Center>
+    </Flex>
   );
 }
