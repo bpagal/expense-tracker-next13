@@ -42,7 +42,7 @@ export default function Home() {
                 <Td isNumeric>{expense.amount}</Td>
                 <Td>{expense.account}</Td>
                 <Td>{expense.category}</Td>
-                <Td>{expense.remarks}</Td>
+                <Td whiteSpace="initial">{expense.remarks}</Td>
               </Tr>
             ))}
           </Tbody>
