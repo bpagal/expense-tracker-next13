@@ -7,6 +7,13 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Input,
+  Select,
+  Stack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
 } from '@chakra-ui/react';
 
 interface Props {
@@ -20,20 +27,46 @@ const AddTransactionModal = ({ isOpen, onClose }: Props) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Add Transaction</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus,
-              voluptas.
-            </p>
+            {/* <Stack spacing={'10px'}> */}
+            <FormControl>
+              <FormLabel>Remarks</FormLabel>
+              <Input placeholder="Select remarks" size="md" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Date</FormLabel>
+              <Input size="md" type="date" />
+              <FormErrorMessage>Date is required.</FormErrorMessage>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Amount</FormLabel>
+              <Input placeholder="Amount" size="md" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Account</FormLabel>
+              <Select placeholder="Select account">
+                <option value="option1">CIMB Savings</option>
+                <option value="option2">KOMO Savings</option>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Category</FormLabel>
+              <Select placeholder="Select category">
+                <option value="option1">Gifts</option>
+                <option value="option2">Dining Out</option>
+                <option value="option2">Fun Money</option>
+              </Select>
+            </FormControl>
+            {/* </Stack> */}
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={'20px'} onClick={onClose}>
+            <Button colorScheme="red" mr={'20px'} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue">Secondary Action</Button>
+            <Button colorScheme="blue">Add</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
