@@ -1,5 +1,6 @@
 import { Text, Link } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import NextLink from 'next/link';
 
 const ListItem = styled.li`
   display: inline;
@@ -8,13 +9,7 @@ const ListItem = styled.li`
 `;
 
 const Navbar = () => {
-  const pages = [
-    'Home',
-    'Transactions',
-    'Configurations',
-    'Settings',
-    'Page 5',
-  ];
+  const pages = ['Home', 'Categories'];
   return (
     <>
        <ul
@@ -25,13 +20,12 @@ const Navbar = () => {
         {pages.map((page) => (
           <ListItem key={page}>
             {
-              <Link
-                onClick={() => {
-                  alert('ateaetea');
-                }}
+              <NextLink
+                passHref
+                href={`/${[page === 'Home' ? '/' : page.toLowerCase()]}`}
               >
-                {page}
-              </Link>
+                <Link>{page}</Link>
+              </NextLink>
             }
           </ListItem>
         ))}
