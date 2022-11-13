@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
   return (
     <>
-      <ul
+       <ul
         style={{
           marginTop: '10px',
         }}
