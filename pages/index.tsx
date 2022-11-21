@@ -18,6 +18,7 @@ import {
 import AddTransactionModal from '../components/AddTransactionModal';
 import Navbar from '../components/Navbar';
 import expenses from '../mocks/expenses.json';
+import ExpenseGroup from '../components/ExpenseGroup/ExpenseGroup';
 
 interface Expense {
   date: string;
@@ -26,7 +27,6 @@ interface Expense {
   category: string;
   remarks: string;
 }
-
 export default function Home() {
   const session = useSession();
   const supabase = useSupabaseClient();
@@ -45,34 +45,8 @@ export default function Home() {
   ) : (
     <>
       <Navbar />
-      <Flex mt={'50px'} direction="column" alignItems={'center'}>
-        <Heading mb={'10px'}>November</Heading>
-        <Button onClick={onOpen}>Open Modal</Button>
-        <TableContainer border="1px solid white" maxWidth={'90%'}>
-          <Table variant="striped" colorScheme="blue">
-            <Thead>
-              <Tr>
-                <Th>date</Th>
-                <Th isNumeric>amount</Th>
-                <Th>account</Th>
-                <Th>category</Th>
-                <Th>remarks</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {allExpenses.map((expense) => (
-                <Tr key={expense.remarks}>
-                  <Td>{expense.date}</Td>
-                  <Td isNumeric>{expense.amount}</Td>
-                  <Td>{expense.account}</Td>
-                  <Td>{expense.category}</Td>
-                  <Td whiteSpace="initial">{expense.remarks}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Flex>
+
+      <ExpenseGroup />
 
       <AddTransactionModal isOpen={isOpen} onClose={onClose} />
     </>
