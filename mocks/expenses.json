@@ -1,58 +1,170 @@
 [
   {
-    "date": "12/3/2021",
+    "id": "7f9bd7c6-c1d2-4df1-8644-4144e835899d",
+    "created_at": "2020-10-01",
+    "amount": 2000,
+    "category": "Groceries",
+    "details": "Groceries"
+  },
+  {
+    "id": "5d2bf607-072c-4f2d-bb05-516664d322d3",
+    "created_at": "2020-10-01",
+    "amount": 412000999.5,
+    "category": "Dining Out",
+    "details": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic laborum ipsam expedita nobis perferendis beatae ipsum vel animi reprehenderit, quibusdam officiis repudiandae corrupti explicabo consectetur dicta. Neque in eligendi est eaque voluptas alias obcaecati aliquid maxime praesentium, dolorum odit perspiciatis explicabo voluptatem quia fugiat accusantium similique autem a. Consectetur dignissimos ullam cumque, natus culpa provident illo laborum exercitationem adipisci iusto! Veniam esse enim distinctio. Recusandae quae quod debitis quasi aliquam omnis iste, itaque animi placeat, eveniet consequuntur aspernatur et numquam! Autem quos ullam exercitationem cumque vitae enim veritatis, possimus, cum temporibus explicabo totam aut quod! Sit deleniti dolor quibusdam dolorum."
+  },
+  {
+    "id": "d8fbdbf4-5f02-4396-bcf6-f571e4e36978",
+    "created_at": "2020-10-06",
+    "amount": 120,
+    "category": "Others-Miscellaneous",
+    "details": "Phlpost Customs Fee"
+  },
+  {
+    "id": "9b0753d0-f919-422d-8f40-4cc4d6d00c66",
+    "created_at": "2020-10-07",
+    "amount": 403,
+    "category": "Transport Commute",
+    "details": "Grab Fare to Starmall Alabang"
+  },
+  {
+    "id": "426fbc1c-b34d-493c-bc1f-bf0707e28252",
+    "created_at": "2020-10-07",
+    "amount": 1210,
+    "category": "Dining Out",
+    "details": "Tim Hortons Treat for Fam"
+  },
+  {
+    "id": "fe7b5499-b485-46b8-a107-26b19f43f6a0",
+    "created_at": "2020-10-10",
+    "amount": 296,
+    "category": "Dining Out",
+    "details": "Bacolod Chicken Inasal"
+  },
+  {
+    "id": "3d2befa5-5e5f-4087-923b-0e1703e4bf92",
+    "created_at": "2020-10-18",
+    "amount": 300,
+    "category": "Dining Out",
+    "details": "Pizza Hut Stuffed Crust"
+  },
+  {
+    "id": "d81e9815-5055-405a-b6f6-44ec9845b773",
+    "created_at": "2020-10-16",
+    "amount": 2000,
+    "category": "Gifts",
+    "details": "Bigay kay mama. Share blessings ❤️"
+  },
+  {
+    "id": "af3406ac-ada3-4a2b-9d6a-3c22255d1a92",
+    "created_at": "2020-10-21",
+    "amount": 29990,
+    "category": "Fun Money",
+    "details": "Oneplus 8T"
+  },
+  {
+    "id": "3310b089-9489-4e3e-ba5d-bd174fa91afb",
+    "created_at": "2020-10-19",
+    "amount": 330,
+    "category": "Dining Out",
+    "details": "Cinnabon for boo boo"
+  },
+  {
+    "id": "195ad277-e25d-4b84-8827-9191d110728a",
+    "created_at": "2020-10-22",
+    "amount": 640,
+    "category": "Dining Out",
+    "details": "Dayrits with boo boo"
+  },
+  {
+    "id": "faadbd7c-88b9-4857-866c-fe09389359fe",
+    "created_at": "2020-10-31",
+    "amount": 100,
+    "category": "Dining Out",
+    "details": "Dayrits tip"
+  },
+  {
+    "id": "52af5c01-7a20-4e1b-a3ec-debf61513b7a",
+    "created_at": "2020-10-31",
+    "amount": 265,
+    "category": "Dining Out",
+    "details": "Gongcha with boo boo"
+  },
+  {
+    "id": "3231ef8f-b29f-4ccb-b624-487a062837b9",
+    "created_at": "2020-10-31",
+    "amount": 18500,
+    "category": "Others-Miscellaneous",
+    "details": "Sunlife VUL"
+  },
+  {
+    "id": "3a235f0b-9bc9-4c07-a0c6-006ef69844b0",
+    "created_at": "2020-10-29",
+    "amount": 950,
+    "category": "Dining Out",
+    "details": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic laborum ipsam expedita nobis perferendis beatae ipsum vel animi reprehenderit, quibusdam officiis repudiandae corrupti explicabo consectetur dicta. Neque in eligendi est eaque voluptas alias obcaecati aliquid maxime praesentium, dolorum odit perspiciatis explicabo voluptatem quia fugiat accusantium similique autem a. Consectetur dignissimos ullam cumque, natus culpa provident illo laborum exercitationem adipisci iusto! Veniam esse enim distinctio. Recusandae quae quod debitis quasi aliquam omnis iste, itaque animi placeat, eveniet consequuntur aspernatur et numquam! Autem quos ullam exercitationem cumque vitae enim veritatis, possimus, cum temporibus explicabo totam aut quod! Sit deleniti dolor quibusdam dolorum."
+  },
+  {
+    "id": "5d4b4ef3-4b1b-4cc7-b0fd-fe45ece37d7b",
+    "created_at": "2020-11-03",
+    "amount": 528,
+    "category": "Dining Out",
+    "details": "Loacker 3pcs"
+  },
+  {
+    "id": "526aa5cc-7f04-4712-9c53-a20aba5ad31e",
+    "created_at": "2020-11-08",
+    "amount": 200,
+    "category": "Gifts",
+    "details": "Shorts gift for ate rein"
+  },
+  {
+    "id": "ba767c41-84da-43ca-bd38-0966c33218f7",
+    "created_at": "2020-11-11",
+    "amount": 701,
+    "category": "Dining Out",
+    "details": "Yoshimeatsu with boo boo"
+  },
+  {
+    "id": "5f87d056-9434-48f6-aaab-d8934917c8ac",
+    "created_at": "2020-11-14",
+    "amount": 180,
+    "category": "Dining Out",
+    "details": "Banapple Banofee Pie"
+  },
+  {
+    "id": "84b1653c-ffc8-48ff-ba79-4e1fe475759b",
+    "created_at": "2020-11-14",
+    "amount": 220,
+    "category": "Dining Out",
+    "details": "Jollibee Breakfast"
+  },
+  {
+    "id": "ecf5b37a-db8b-47fb-b644-5157e235b24a",
+    "created_at": "2020-11-17",
+    "amount": 177,
+    "category": "Dining Out",
+    "details": "Mcdo Breakfast"
+  },
+  {
+    "id": "fbae534d-9738-4a5e-9269-14978b57d519",
+    "created_at": "2020-11-18",
     "amount": 500,
-    "account": "CIMB Savings",
-    "category": "Gifts",
-    "remarks": "Secret Santa exchange gift"
-  },
-  {
-    "date": "12/3/2021",
-    "amount": 2347,
-    "account": "CIMB Savings",
-    "category": "Dining Out",
-    "remarks": "Nono's Kitchen food"
-  },
-  {
-    "date": "12/3/2021",
-    "amount": 400,
-    "account": "CIMB Savings",
-    "category": "Dining Out",
-    "remarks": "Tim Hortons"
-  },
-  {
-    "date": "12/3/2021",
-    "amount": 650,
-    "account": "CIMB Savings",
     "category": "Fun Money",
-    "remarks": "Foot rest"
+    "details": "Tranya T10 Truly Wireless Earbuds"
   },
   {
-    "date": "12/3/2021",
-    "amount": 488,
-    "account": "CIMB Savings",
+    "id": "7f11225a-a114-4b4f-8ad7-429a70907242",
+    "created_at": "2020-11-19",
+    "amount": 282,
     "category": "Dining Out",
-    "remarks": "          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur et nisi unde! Debitis consequuntur consectetur corporis impedit eaque, deserunt quas aperiam. A ipsam fuga ipsa pariatur itaque beatae nulla eum vel repellat, cumque architecto quae. Rem, rerum sit voluptatibus molestiae placeat nihil consequatur saepe blanditiis dignissimos minus ullam doloremque. Perspiciatis distinctio sunt cumque eligendi aliquid tenetur sed consequatur exercitationem nulla et quo ratione at a unde ipsum eaque possimus quia ea, aut magni eos quam. Iste rem consequuntur distinctio sint quas corporis debitis sapiente officiis quo aut exercitationem perspiciatis praesentium, doloremque vero quia deserunt nobis. Quo, atque? Accusamus, libero."
+    "details": "Jollibee Breakfast"
   },
   {
-    "date": "12/3/2021",
-    "amount": 425,
-    "account": "CIMB Savings",
-    "category": "Gifts",
-    "remarks": "Daster gift yaya"
-  },
-  {
-    "date": "12/3/2021",
-    "amount": 750,
-    "account": "CIMB Savings",
+    "id": "4c79b0db-15df-4614-bb3f-1a42106bfb41",
+    "created_at": "2020-11-23",
+    "amount": 1200,
     "category": "Fun Money",
-    "remarks": "Omni Power Strip"
-  },
-  {
-    "date": "12/3/2021",
-    "amount": 280,
-    "account": "CIMB Savings",
-    "category": "Fun Money",
-    "remarks": "3M Command Strips"
+    "details": "Spigen Oneplus 8T"
   }
 ]
