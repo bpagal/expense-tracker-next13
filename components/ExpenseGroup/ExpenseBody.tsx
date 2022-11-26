@@ -5,7 +5,7 @@ import { FcHome } from 'react-icons/fc';
 interface Props {
   category: string;
   details: string;
-  amount: string;
+  amount: number;
 }
 
 // TODO edit icon FcHome

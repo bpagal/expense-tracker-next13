@@ -1,6 +1,11 @@
 import { Heading, Text, Flex } from '@chakra-ui/react';
 
-const ExpenseHeader = () => {
+interface Props {
+  date: string;
+  totalAmount: number;
+}
+
+const ExpenseHeader = ({ date, totalAmount }: Props) => {
   return (
     <Flex
       mt="50px"
@@ -9,9 +14,9 @@ const ExpenseHeader = () => {
       borderColor="gray.400"
       p="10px"
     >
-      <Heading size="md">November 15 2022</Heading>
+      <Heading size="md">{date}</Heading>
       <Text size="md" color="red.500">
-        ₱ 9000
+        ₱ {totalAmount}
       </Text>
     </Flex>
   );
