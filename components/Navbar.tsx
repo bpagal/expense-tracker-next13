@@ -12,7 +12,7 @@ const Navbar = () => {
   const pages = ['Home', 'Categories'];
   return (
     <>
-       <ul
+      <ul
         style={{
           marginTop: '10px',
         }}

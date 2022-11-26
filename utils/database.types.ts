@@ -16,7 +16,7 @@ export interface Database {
           name: string | null;
         };
         Insert: {
-          id: string;
+          id?: string;
           created_at?: string | null;
           name?: string | null;
         };
@@ -24,6 +24,29 @@ export interface Database {
           id?: string;
           created_at?: string | null;
           name?: string | null;
+        };
+      };
+      expenses: {
+        Row: {
+          id: string;
+          created_at: string | null;
+          amount: number | null;
+          category: string | null;
+          details: string | null;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string | null;
+          amount?: number | null;
+          category?: string | null;
+          details?: string | null;
+        };
+        Update: {
+          id?: string;
+          created_at?: string | null;
+          amount?: number | null;
+          category?: string | null;
+          details?: string | null;
         };
       };
     };

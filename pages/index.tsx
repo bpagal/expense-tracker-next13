@@ -12,12 +12,15 @@ import {
   Heading,
   Flex,
   Button,
+  Box,
   useDisclosure,
   Container,
+  Center,
 } from '@chakra-ui/react';
 import AddTransactionModal from '../components/AddTransactionModal';
 import Navbar from '../components/Navbar';
 import expenses from '../mocks/expenses.json';
+import ExpenseGroup from '../components/ExpenseGroup/ExpenseGroup';
 
 interface Expense {
   date: string;
@@ -26,13 +29,36 @@ interface Expense {
   category: string;
   remarks: string;
 }
-
 export default function Home() {
   const session = useSession();
   const supabase = useSupabaseClient();
 
   const allExpenses: Expense[] = expenses;
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const sample = {
+    date: '10-23-2022',
+    expenses: [
+      {
+        id: '7f9bd7c6-c1d2-4df1-8644-4144e835899d',
+        amount: 8000,
+        category: 'Dining out',
+        details: 'Burger King',
+      },
+      {
+        id: '5d2bf607-072c-4f2d-bb05-516664d322d3',
+        amount: 2000,
+        category: 'Dining out',
+        details: 'Angels Pizza',
+      },
+      {
+        id: 'd8fbdbf4-5f02-4396-bcf6-f571e4e36978',
+        amount: 4000,
+        category: 'Dining out',
+        details: 'KFC Gravy Burger',
+      },
+    ],
+  };
 
   return !session ? (
     <Container>
@@ -45,36 +71,13 @@ export default function Home() {
   ) : (
     <>
       <Navbar />
-      <Flex mt={'50px'} direction="column" alignItems={'center'}>
-        <Heading mb={'10px'}>November</Heading>
-        <Button onClick={onOpen}>Open Modal</Button>
-        <TableContainer border="1px solid white" maxWidth={'90%'}>
-          <Table variant="striped" colorScheme="blue">
-            <Thead>
-              <Tr>
-                <Th>date</Th>
-                <Th isNumeric>amount</Th>
-                <Th>account</Th>
-                <Th>category</Th>
-                <Th>remarks</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {allExpenses.map((expense) => (
-                <Tr key={expense.remarks}>
-                  <Td>{expense.date}</Td>
-                  <Td isNumeric>{expense.amount}</Td>
-                  <Td>{expense.account}</Td>
-                  <Td>{expense.category}</Td>
-                  <Td whiteSpace="initial">{expense.remarks}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Flex>
-
-      <AddTransactionModal isOpen={isOpen} onClose={onClose} />
+      <ExpenseGroup date="2022-11-20" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-21" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-22" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-23" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-24" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-25" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-26" expenses={sample.expenses} />
     </>
   );
 }
