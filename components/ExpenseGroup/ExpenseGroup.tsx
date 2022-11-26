@@ -14,10 +14,13 @@ interface Props {
 
 const ExpenseGroup = ({ date, expenses }: Props) => {
   const formattedDate = new Date(date).toDateString();
+  const totalAmount = expenses.reduce((prevValue, currentValue) => {
+    return prevValue + currentValue.amount;
+  }, 0);
 
   return (
     <Container maxWidth="3xl">
-      <ExpenseHeader date={formattedDate} totalAmount={13000} />
+      <ExpenseHeader date={formattedDate} totalAmount={totalAmount} />
       {expenses.map((expense) => (
         <ExpenseBody
           key={expense.id}
