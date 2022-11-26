@@ -36,6 +36,30 @@ export default function Home() {
   const allExpenses: Expense[] = expenses;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const sample = {
+    date: '10-23-2022',
+    expenses: [
+      {
+        id: '7f9bd7c6-c1d2-4df1-8644-4144e835899d',
+        amount: 8000,
+        category: 'Dining out',
+        details: 'Burger King',
+      },
+      {
+        id: '5d2bf607-072c-4f2d-bb05-516664d322d3',
+        amount: 2000,
+        category: 'Dining out',
+        details: 'Angels Pizza',
+      },
+      {
+        id: 'd8fbdbf4-5f02-4396-bcf6-f571e4e36978',
+        amount: 4000,
+        category: 'Dining out',
+        details: 'KFC Gravy Burger',
+      },
+    ],
+  };
+
   return !session ? (
     <Container>
       <Auth
@@ -47,13 +71,13 @@ export default function Home() {
   ) : (
     <>
       <Navbar />
-
-      {/* <Box maxW={'800px'} margin="auto"> */}
-      <ExpenseGroup />
-
-      {/* </Box> */}
-
-      <AddTransactionModal isOpen={isOpen} onClose={onClose} />
+      <ExpenseGroup date="2022-11-20" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-21" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-22" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-23" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-24" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-25" expenses={sample.expenses} />
+      <ExpenseGroup date="2022-11-26" expenses={sample.expenses} />
     </>
   );
 }
