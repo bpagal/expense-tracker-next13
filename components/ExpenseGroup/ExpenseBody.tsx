@@ -31,13 +31,18 @@ import { FcHome } from 'react-icons/fc';
 //   onClose: () => void;
 // }
 
-const ExpenseGroupBody = () => {
+const ExpenseBody = () => {
   const supabaseClient = useSupabaseClient<Database>();
   const router = useRouter();
 
   return (
     <>
-      <Flex justify="space-between" borderBottom={'0.1px solid white'} p="1rem">
+      <Flex
+        justify="space-between"
+        borderBottom={'1px solid white'}
+        borderColor="gray.400"
+        padding="10px"
+      >
         <HStack spacing={'1rem'}>
           <Icon as={FcHome} boxSize="2rem" />
           <Box>
@@ -51,4 +56,4 @@ const ExpenseGroupBody = () => {
   );
 };
 
-export default ExpenseGroupBody;
+export default ExpenseBody;

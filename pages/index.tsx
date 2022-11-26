@@ -12,8 +12,10 @@ import {
   Heading,
   Flex,
   Button,
+  Box,
   useDisclosure,
   Container,
+  Center,
 } from '@chakra-ui/react';
 import AddTransactionModal from '../components/AddTransactionModal';
 import Navbar from '../components/Navbar';
@@ -46,7 +48,10 @@ export default function Home() {
     <>
       <Navbar />
 
+      {/* <Box maxW={'800px'} margin="auto"> */}
       <ExpenseGroup />
+
+      {/* </Box> */}
 
       <AddTransactionModal isOpen={isOpen} onClose={onClose} />
     </>
