@@ -1,58 +1,31 @@
-import React, { useState } from 'react';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  Input,
-  Select,
-  Stack,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Heading,
-  Text,
-  Flex,
-  Box,
-  Icon,
-  HStack,
-} from '@chakra-ui/react';
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Database } from '../../utils/database.types';
-import { useRouter } from 'next/router';
+import React from 'react';
+import { Text, Flex, Box, Icon, HStack } from '@chakra-ui/react';
 import { FcHome } from 'react-icons/fc';
-// interface Props {
-//   isOpen: boolean;
-//   onClose: () => void;
-// }
 
-const ExpenseBody = () => {
-  const supabaseClient = useSupabaseClient<Database>();
-  const router = useRouter();
+interface Props {
+  category: string;
+  details: string;
+  amount: string;
+}
 
+// TODO edit icon FcHome
+const ExpenseBody = ({ amount, category, details }: Props) => {
   return (
-    <>
-      <Flex
-        justify="space-between"
-        borderBottom={'1px solid white'}
-        borderColor="gray.400"
-        padding="10px"
-      >
-        <HStack spacing={'1rem'}>
-          <Icon as={FcHome} boxSize="2rem" />
-          <Box>
-            <Text>Insurances</Text>
-            <Text>Sunlife</Text>
-          </Box>
-        </HStack>
-        <Text color="red.500">₱ 58000</Text>
-      </Flex>
-    </>
+    <Flex
+      justify="space-between"
+      borderBottom="1px solid white"
+      borderColor="gray.400"
+      padding="10px"
+    >
+      <HStack spacing="1rem">
+        <Icon as={FcHome} boxSize="2rem" />
+        <Box>
+          <Text>{category}</Text>
+          <Text>{details}</Text>
+        </Box>
+      </HStack>
+      <Text color="red.500">₱ {amount}</Text>
+    </Flex>
   );
 };
 
