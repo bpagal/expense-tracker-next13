@@ -19,14 +19,12 @@ const Navbar = () => {
       >
         {pages.map((page) => (
           <ListItem key={page}>
-            {
-              <NextLink
-                passHref
-                href={`/${[page === 'Home' ? '/' : page.toLowerCase()]}`}
-              >
-                <Link>{page}</Link>
-              </NextLink>
-            }
+            <NextLink
+              passHref
+              href={`/${[page === 'Home' ? '/' : page.toLowerCase()]}`}
+            >
+              <Link as="span">{page}</Link>
+            </NextLink>
           </ListItem>
         ))}
       </ul>
