@@ -12,38 +12,38 @@ export interface Database {
       categories: {
         Row: {
           id: string;
-          created_at: string | null;
+          date: string | null;
           name: string | null;
         };
         Insert: {
           id?: string;
-          created_at?: string | null;
+          date?: string | null;
           name?: string | null;
         };
         Update: {
           id?: string;
-          created_at?: string | null;
+          date?: string | null;
           name?: string | null;
         };
       };
       expenses: {
         Row: {
           id: string;
-          created_at: string | null;
+          date: string | null;
           amount: number | null;
           category: string | null;
           details: string | null;
         };
         Insert: {
           id?: string;
-          created_at?: string | null;
+          date?: string | null;
           amount?: number | null;
           category?: string | null;
           details?: string | null;
         };
         Update: {
           id?: string;
-          created_at?: string | null;
+          date?: string | null;
           amount?: number | null;
           category?: string | null;
           details?: string | null;

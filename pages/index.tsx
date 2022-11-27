@@ -1,64 +1,73 @@
-import { useEffect } from 'react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Heading,
-  Flex,
-  Button,
-  Box,
-  useDisclosure,
-  Container,
-  Center,
-} from '@chakra-ui/react';
-import AddTransactionModal from '../components/AddTransactionModal';
-import Navbar from '../components/Navbar';
-import expenses from '../mocks/expenses.json';
-import ExpenseGroup from '../components/ExpenseGroup/ExpenseGroup';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { Container } from '@chakra-ui/react';
 
-interface Expense {
+import ExpenseGroup, {
+  ExpenseGroupProps,
+} from '../components/ExpenseGroup/ExpenseGroup';
+import { Database } from '../utils/database.types';
+import Navbar from '../components/Navbar';
+
+interface RawExpenseData {
   date: string;
+  id: string;
   amount: number;
-  account: string;
   category: string;
-  remarks: string;
+  details: string;
 }
-export default function Home() {
+
+interface HomeProps {
+  data: RawExpenseData[];
+}
+
+const transformData = (rawExpenseData: RawExpenseData[]) => {
+  const transformedData: ExpenseGroupProps[] = [];
+
+  for (const element of rawExpenseData) {
+    const { date: rawExpenseDate, ...rawExpenseRest } = element;
+
+    if (
+      !transformedData.find((expense) => expense.date === rawExpenseDate)?.date
+    ) {
+      transformedData.push({
+        date: rawExpenseDate,
+        expenses: [rawExpenseRest],
+      });
+    } else {
+      const dateIndex = transformedData.findIndex(
+        (elem) => elem.date === rawExpenseDate
+      );
+      transformedData[dateIndex].expenses.push(rawExpenseRest);
+    }
+  }
+
+  return transformedData;
+};
+
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const supabase = createServerSupabaseClient<Database>(ctx);
+  const { data: expensesData } = await supabase
+    .from('expenses')
+    .select('*')
+    .order('date', {
+      ascending: false,
+    });
+
+  return {
+    props: {
+      data: expensesData,
+    },
+  };
+};
+
+export default function Home({ data }: HomeProps) {
   const session = useSession();
   const supabase = useSupabaseClient();
-
-  const allExpenses: Expense[] = expenses;
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const sample = {
-    date: '10-23-2022',
-    expenses: [
-      {
-        id: '7f9bd7c6-c1d2-4df1-8644-4144e835899d',
-        amount: 8000,
-        category: 'Dining out',
-        details: 'Burger King',
-      },
-      {
-        id: '5d2bf607-072c-4f2d-bb05-516664d322d3',
-        amount: 2000,
-        category: 'Dining out',
-        details: 'Angels Pizza',
-      },
-      {
-        id: 'd8fbdbf4-5f02-4396-bcf6-f571e4e36978',
-        amount: 4000,
-        category: 'Dining out',
-        details: 'KFC Gravy Burger',
-      },
-    ],
-  };
+  const expenseData = transformData(data);
 
   return !session ? (
     <Container>
@@ -71,13 +80,13 @@ export default function Home() {
   ) : (
     <>
       <Navbar />
-      <ExpenseGroup date="2022-11-20" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-21" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-22" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-23" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-24" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-25" expenses={sample.expenses} />
-      <ExpenseGroup date="2022-11-26" expenses={sample.expenses} />
+      {expenseData.map((elem) => (
+        <ExpenseGroup
+          key={elem.date}
+          date={elem.date}
+          expenses={elem.expenses}
+        />
+      ))}
     </>
   );
 }

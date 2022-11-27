@@ -1,15 +1,14 @@
-import React from 'react';
 import { Text, Flex, Box, Icon, HStack } from '@chakra-ui/react';
 import { FcHome } from 'react-icons/fc';
 
-interface Props {
+export interface ExpenseBodyProps {
   category: string;
   details: string;
   amount: number;
 }
 
 // TODO edit icon FcHome
-const ExpenseBody = ({ amount, category, details }: Props) => {
+const ExpenseBody = ({ amount, category, details }: ExpenseBodyProps) => {
   return (
     <Flex
       justify="space-between"
