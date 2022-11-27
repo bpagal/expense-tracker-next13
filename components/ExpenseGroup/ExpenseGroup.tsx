@@ -2,7 +2,7 @@ import { Container } from '@chakra-ui/react';
 import ExpenseHeader from './ExpenseHeader';
 import ExpenseBody from './ExpenseBody';
 
-interface Props {
+export interface ExpenseGroupProps {
   date: string;
   expenses: {
     id: string;
@@ -12,7 +12,7 @@ interface Props {
   }[];
 }
 
-const ExpenseGroup = ({ date, expenses }: Props) => {
+const ExpenseGroup = ({ date, expenses }: ExpenseGroupProps) => {
   const formattedDate = new Date(date).toDateString();
   const totalAmount = expenses.reduce((prevValue, currentValue) => {
     return prevValue + currentValue.amount;

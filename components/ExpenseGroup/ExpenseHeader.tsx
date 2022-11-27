@@ -1,11 +1,11 @@
 import { Heading, Text, Flex } from '@chakra-ui/react';
 
-interface Props {
+export interface ExpenseHeaderProps {
   date: string;
   totalAmount: number;
 }
 
-const ExpenseHeader = ({ date, totalAmount }: Props) => {
+const ExpenseHeader = ({ date, totalAmount }: ExpenseHeaderProps) => {
   return (
     <Flex
       mt="50px"
