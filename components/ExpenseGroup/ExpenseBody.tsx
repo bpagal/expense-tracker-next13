@@ -14,16 +14,18 @@ const ExpenseBody = ({ amount, category, details }: ExpenseBodyProps) => {
       justify="space-between"
       borderBottom="1px solid white"
       borderColor="gray.400"
-      padding="10px"
+      padding="5px"
     >
       <HStack spacing="1rem">
         <Icon as={FcHome} boxSize="2rem" />
         <Box>
-          <Text>{category}</Text>
-          <Text>{details}</Text>
+          <Text fontSize={['sm', 'md']}>{category}</Text>
+          <Text fontSize={['sm', 'md']}>{details}</Text>
         </Box>
       </HStack>
-      <Text color="red.500">₱ {amount}</Text>
+      <Text color="red.500" fontSize={['sm', 'md']} flexShrink="0">
+        ₱ {amount}
+      </Text>
     </Flex>
   );
 };

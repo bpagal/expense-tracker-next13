@@ -19,7 +19,7 @@ const ExpenseGroup = ({ date, expenses }: ExpenseGroupProps) => {
   }, 0);
 
   return (
-    <Container maxWidth="3xl">
+    <Container maxWidth="3xl" mb="2rem">
       <ExpenseHeader date={formattedDate} totalAmount={totalAmount} />
       {expenses.map((expense) => (
         <ExpenseBody
