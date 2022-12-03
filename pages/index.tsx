@@ -49,13 +49,29 @@ const transformData = (rawExpenseData: RawExpenseData[]) => {
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
+  const pageNum = Number(ctx.query.page) || 1;
+  /**
+   * 1st page: range(0,9)
+   *
+   * 2nd page: range(10,19)
+   *
+   * 3rd page: range(20,29)
+   *
+   * 4th page: range(30,39)
+   *
+   * 5th page: range(40,49)
+   */
+  const pageLimit = 9;
+  const rangeFrom = pageNum === 1 ? 0 : (pageNum - 1) * (pageLimit + 1);
+  const rangeTo = rangeFrom + pageLimit;
   const supabase = createServerSupabaseClient<Database>(ctx);
   const { data: expensesData } = await supabase
     .from('expenses')
     .select('*')
     .order('date', {
       ascending: false,
-    });
+    })
+    .range(rangeFrom, rangeTo);
 
   return {
     props: {
