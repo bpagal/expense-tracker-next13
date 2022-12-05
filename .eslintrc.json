@@ -25,6 +25,7 @@
         "children": "never",
         "propElementValues": "always"
       }
-    ]
+    ],
+    "no-console": "error"
   }
 }
