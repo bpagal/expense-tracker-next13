@@ -2,7 +2,8 @@ import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { Container } from '@chakra-ui/react';
+import { Container, Button } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 import ExpenseGroup, {
   ExpenseGroupProps,
@@ -51,17 +52,17 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const pageNum = Number(ctx.query.page) || 1;
   /**
-   * 1st page: range(0,9)
+   * 1st page: range(0,19)
    *
-   * 2nd page: range(10,19)
+   * 2nd page: range(20,39)
    *
-   * 3rd page: range(20,29)
+   * 3rd page: range(40,59)
    *
-   * 4th page: range(30,39)
+   * 4th page: range(60,79)
    *
-   * 5th page: range(40,49)
+   * 5th page: range(80,99)
    */
-  const pageLimit = 9;
+  const pageLimit = 19;
   const rangeFrom = pageNum === 1 ? 0 : (pageNum - 1) * (pageLimit + 1);
   const rangeTo = rangeFrom + pageLimit;
   const supabase = createServerSupabaseClient<Database>(ctx);
@@ -96,6 +97,14 @@ export default function Home({ data }: HomeProps) {
   ) : (
     <>
       <Navbar />
+      <Container maxWidth="3xl">
+        <NextLink href="/expenses/add">
+          <Button size="xs" colorScheme="blue" mb="10px">
+            Add Expense
+          </Button>
+        </NextLink>
+      </Container>
+
       {expenseData.map((elem) => (
         <ExpenseGroup
           key={elem.date}
