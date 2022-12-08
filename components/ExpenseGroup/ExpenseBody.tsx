@@ -52,7 +52,7 @@ const ExpenseBody = ({
       </HStack>
 
       <Flex direction="column" alignItems="end" justify="space-around">
-        <Text color="red.500" fontSize={['sm', 'md']} flexShrink="0">
+        <Text color="red.500" fontSize={['sm', 'md']} whiteSpace="nowrap">
           ₱ {amount}
         </Text>
         <Popover>
