@@ -24,9 +24,11 @@ const ExpenseGroup = ({ date, expenses }: ExpenseGroupProps) => {
       {expenses.map((expense) => (
         <ExpenseBody
           key={expense.id}
+          id={expense.id}
           amount={expense.amount}
           category={expense.category}
           details={expense.details}
+          date={date}
         />
       ))}
     </Container>
