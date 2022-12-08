@@ -52,7 +52,7 @@ const ExpenseBody = ({
       </HStack>
 
       <Flex direction="column" alignItems="end" justify="space-around">
-        <Text color="red.500" fontSize={['sm', 'md']} flexShrink="0">
+        <Text color="red.500" fontSize={['sm', 'md']} whiteSpace="nowrap">
           ₱ {amount}
         </Text>
         <Popover>
@@ -64,11 +64,11 @@ const ExpenseBody = ({
               icon={<FaBars />}
             />
           </PopoverTrigger>
-          <PopoverContent w="130%">
+          <PopoverContent w="100px">
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverBody>
-              <VStack spacing="1rem">
+              <VStack spacing="1rem" align="start">
                 <NextLink
                   href={{
                     pathname: `/expenses/edit/${id}`,

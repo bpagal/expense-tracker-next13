@@ -74,7 +74,7 @@ const Edit = () => {
       .eq('id', idQuery);
 
     if (error === null && statusText) {
-      await router.push('/');
+      router.back();
     }
     setIsLoading(false);
   };
