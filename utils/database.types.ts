@@ -37,16 +37,16 @@ export interface Database {
         Insert: {
           id?: string;
           date?: string | null;
-          amount?: number | null;
-          category?: string | null;
-          details?: string | null;
+          amount: number;
+          category: string;
+          details: string;
         };
         Update: {
           id?: string;
-          date?: string | null;
-          amount?: number | null;
-          category?: string | null;
-          details?: string | null;
+          date: string;
+          amount: number;
+          category: string;
+          details: string;
         };
       };
     };
