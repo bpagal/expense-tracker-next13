@@ -64,11 +64,11 @@ const ExpenseBody = ({
               icon={<FaBars />}
             />
           </PopoverTrigger>
-          <PopoverContent w="130%">
+          <PopoverContent w="100px">
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverBody>
-              <VStack spacing="1rem">
+              <VStack spacing="1rem" align="start">
                 <NextLink
                   href={{
                     pathname: `/expenses/edit/${id}`,
