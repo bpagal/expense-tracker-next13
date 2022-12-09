@@ -14,25 +14,11 @@ import {
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Navbar from '../../../components/Navbar';
 import { Database } from '../../../utils/database.types';
-
-// TODO use categories api for this
-const categories = [
-  'Dining Out',
-  'Groceries',
-  'Gasoline',
-  'Fun Money',
-  'Toiletries / Supplies',
-  'Internet Bill',
-  'Clothing',
-  'Gifts',
-  'Cash for mom',
-  'Others/Miscellaneous',
-  'Transport Commute',
-  'Sunlife insurance',
-];
+import categories from '../../../components/Categories';
 
 const Edit = () => {
   const supabaseClient = useSupabaseClient<Database>();
@@ -76,7 +62,6 @@ const Edit = () => {
     if (error === null && statusText) {
       router.back();
     }
-    setIsLoading(false);
   };
 
   return (
@@ -142,8 +127,8 @@ const Edit = () => {
                   }}
                 >
                   {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
+                    <option key={category.name} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </Select>
@@ -152,7 +137,7 @@ const Edit = () => {
               <FormControl>
                 <FormLabel>Date</FormLabel>
                 <Input
-                  size="sm"
+                  size={'sm'}
                   type="date"
                   value={date}
                   onChange={(event) => {

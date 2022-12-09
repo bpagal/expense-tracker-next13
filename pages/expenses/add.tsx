@@ -18,22 +18,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import Navbar from '../../components/Navbar';
 import { Database } from '../../utils/database.types';
-
-// TODO use categories api for this
-const categories = [
-  'Dining Out',
-  'Groceries',
-  'Gasoline',
-  'Fun Money',
-  'Toiletries / Supplies',
-  'Internet Bill',
-  'Clothing',
-  'Gifts',
-  'Cash for mom',
-  'Others/Miscellaneous',
-  'Transport Commute',
-  'Sunlife insurance',
-];
+import categories from '../../components/Categories';
 
 const AddExpense = () => {
   const supabaseClient = useSupabaseClient<Database>();
@@ -135,9 +120,11 @@ const AddExpense = () => {
                   }}
                 >
                   {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
+                    <>
+                      <option key={category.name} value={category.name}>
+                        {category.name}
+                      </option>
+                    </>
                   ))}
                 </Select>
                 <FormErrorMessage>Category is required.</FormErrorMessage>
