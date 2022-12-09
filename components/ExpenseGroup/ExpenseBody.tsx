@@ -2,13 +2,11 @@ import {
   Text,
   Flex,
   Box,
-  Icon,
   IconButton,
   HStack,
   VStack,
   Button,
 } from '@chakra-ui/react';
-import { FcHome } from 'react-icons/fc';
 import { FaBars } from 'react-icons/fa';
 import {
   Popover,
@@ -19,6 +17,7 @@ import {
   PopoverCloseButton,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import categories, { defaultIcon } from '../Categories';
 
 export interface ExpenseBodyProps {
   category: string;
@@ -28,7 +27,6 @@ export interface ExpenseBodyProps {
   id: string;
 }
 
-// TODO edit icon FcHome
 const ExpenseBody = ({
   amount,
   category,
@@ -36,6 +34,8 @@ const ExpenseBody = ({
   date,
   id,
 }: ExpenseBodyProps) => {
+  const mainCategory = categories.find((elem) => elem.name === category);
+
   return (
     <Flex
       justify="space-between"
@@ -44,7 +44,7 @@ const ExpenseBody = ({
       padding="5px"
     >
       <HStack spacing="1rem">
-        <Icon as={FcHome} boxSize="2rem" />
+        {mainCategory?.icon ?? defaultIcon}
         <Box>
           <Text fontSize={['sm', 'md']}>{category}</Text>
           <Text fontSize={['sm', 'md']}>{details}</Text>

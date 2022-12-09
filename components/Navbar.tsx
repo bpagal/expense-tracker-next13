@@ -1,4 +1,4 @@
-import { Text, Link } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import NextLink from 'next/link';
 
@@ -9,7 +9,7 @@ const ListItem = styled.li`
 `;
 
 const Navbar = () => {
-  const pages = ['Home', 'Categories'];
+  const pages = ['Home'];
   return (
     <>
       <ul
