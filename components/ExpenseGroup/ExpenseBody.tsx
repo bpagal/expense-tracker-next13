@@ -1,23 +1,6 @@
-import {
-  Text,
-  Flex,
-  Box,
-  IconButton,
-  HStack,
-  VStack,
-  Button,
-} from '@chakra-ui/react';
-import { FaBars } from 'react-icons/fa';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Text, Flex, Box, HStack } from '@chakra-ui/react';
 import categories, { defaultIcon } from '../Categories';
+import OptionMenu from './OptionMenu';
 
 export interface ExpenseBodyProps {
   category: string;
@@ -28,9 +11,9 @@ export interface ExpenseBodyProps {
 }
 
 const ExpenseBody = ({
-  amount,
   category,
   details,
+  amount,
   date,
   id,
 }: ExpenseBodyProps) => {
@@ -55,42 +38,13 @@ const ExpenseBody = ({
         <Text color="red.500" fontSize={['sm', 'md']} whiteSpace="nowrap">
           ₱ {amount}
         </Text>
-        <Popover>
-          <PopoverTrigger>
-            <IconButton
-              aria-label="Settings"
-              variant="outline"
-              size="xs"
-              icon={<FaBars />}
-            />
-          </PopoverTrigger>
-          <PopoverContent w="100px">
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverBody>
-              <VStack spacing="1rem" align="start">
-                <NextLink
-                  href={{
-                    pathname: `/expenses/edit/${id}`,
-                    query: {
-                      amount,
-                      category,
-                      details,
-                      date,
-                    },
-                  }}
-                >
-                  <Button size="xs" colorScheme="blue">
-                    Edit
-                  </Button>
-                </NextLink>
-                <Button size="xs" colorScheme="red">
-                  Delete
-                </Button>
-              </VStack>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        <OptionMenu
+          category={category}
+          details={details}
+          amount={amount}
+          date={date}
+          id={id}
+        />
       </Flex>
     </Flex>
   );
