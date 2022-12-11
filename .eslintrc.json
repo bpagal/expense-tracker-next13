@@ -26,6 +26,7 @@
         "propElementValues": "always"
       }
     ],
-    "no-console": "error"
+    "no-console": "error",
+    "no-else-return": "error"
   }
 }

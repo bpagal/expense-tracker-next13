@@ -1,13 +1,10 @@
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Container } from '@chakra-ui/react';
 
 import ExpenseGroup, {
   ExpenseGroupProps,
 } from '../components/ExpenseGroup/ExpenseGroup';
-import { Database, ExpensesRow } from '../utils/database.types';
+import { ExpensesRow } from '../utils/database.types';
 import Navbar from '../components/Navbar';
 import HomeToolbar from '../components/HomeToolbar';
 
@@ -15,19 +12,9 @@ export default function Home({
   expensesData,
   maxPageNum,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const session = useSession();
-  const supabase = useSupabaseClient();
   const expenseData = transformData(expensesData);
 
-  return !session ? (
-    <Container>
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        theme="dark"
-      />
-    </Container>
-  ) : (
+  return (
     <>
       <Navbar />
       <HomeToolbar maxPageNum={maxPageNum} />
@@ -63,8 +50,10 @@ export const getServerSideProps: GetServerSideProps<{
   const PAGE_LIMIT = 20;
   const rangeFrom = currentPage === 1 ? 0 : (currentPage - 1) * PAGE_LIMIT;
   const rangeTo = rangeFrom + (PAGE_LIMIT - 1);
-  const supabase = createServerSupabaseClient<Database>(sspContext);
-  let expensesQuery = supabase.from('expenses').select('*', { count: 'exact' });
+  const supabaseClient = createServerSupabaseClient(sspContext);
+  let expensesQuery = supabaseClient
+    .from('expenses')
+    .select('*', { count: 'exact' });
   if (fromDate !== null && toDate !== null) {
     expensesQuery = expensesQuery.gte('date', fromDate).lte('date', toDate);
   }
