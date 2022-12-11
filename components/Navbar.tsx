@@ -21,7 +21,7 @@ const Navbar = () => {
           <ListItem key={page}>
             <NextLink
               passHref
-              href={`/${[page === 'Home' ? '' : page.toLowerCase()]}`}
+              href={`/${[page === 'Home' ? '?page=1' : page.toLowerCase()]}`}
             >
               <Link as="span">{page}</Link>
             </NextLink>
