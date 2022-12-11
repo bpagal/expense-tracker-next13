@@ -120,11 +120,9 @@ const AddExpense = () => {
                   }}
                 >
                   {categories.map((category) => (
-                    <>
-                      <option key={category.name} value={category.name}>
-                        {category.name}
-                      </option>
-                    </>
+                    <option key={category.name} value={category.name}>
+                      {category.name}
+                    </option>
                   ))}
                 </Select>
                 <FormErrorMessage>Category is required.</FormErrorMessage>

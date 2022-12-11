@@ -6,6 +6,14 @@ export type Json =
   | { [key: string]: Json }
   | Json[];
 
+export type ExpensesRow = {
+  id: string;
+  date: string;
+  amount: number;
+  category: string;
+  details: string;
+};
+
 export interface Database {
   public: {
     Tables: {
@@ -27,13 +35,7 @@ export interface Database {
         };
       };
       expenses: {
-        Row: {
-          id: string;
-          date: string | null;
-          amount: number | null;
-          category: string | null;
-          details: string | null;
-        };
+        Row: ExpensesRow;
         Insert: {
           id?: string;
           date?: string | null;

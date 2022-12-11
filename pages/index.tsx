@@ -1,26 +1,96 @@
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { Container, Button } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { Container } from '@chakra-ui/react';
 
 import ExpenseGroup, {
   ExpenseGroupProps,
 } from '../components/ExpenseGroup/ExpenseGroup';
-import { Database } from '../utils/database.types';
+import { Database, ExpensesRow } from '../utils/database.types';
 import Navbar from '../components/Navbar';
+import HomeToolbar from '../components/HomeToolbar';
 
-interface RawExpenseData {
-  date: string;
-  id: string;
-  amount: number;
-  category: string;
-  details: string;
+export default function Home({
+  expensesData,
+  maxPageNum,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const expenseData = transformData(expensesData);
+
+  return !session ? (
+    <Container>
+      <Auth
+        supabaseClient={supabase}
+        appearance={{ theme: ThemeSupa }}
+        theme="dark"
+      />
+    </Container>
+  ) : (
+    <>
+      <Navbar />
+      <HomeToolbar maxPageNum={maxPageNum} />
+      {expenseData.map((elem) => (
+        <ExpenseGroup
+          key={elem.date}
+          date={elem.date}
+          expenses={elem.expenses}
+        />
+      ))}
+    </>
+  );
 }
 
-const transformData = (rawExpenseData: RawExpenseData[]) => {
+export const getServerSideProps: GetServerSideProps<{
+  expensesData: ExpensesRow[];
+  maxPageNum: number;
+}> = async (sspContext) => {
+  const fromDate = sspContext.query.fromDate || null;
+  const toDate = sspContext.query.toDate || null;
+  const currentPage = Number(sspContext.query.page) || 1;
+  /**
+   * 1st page: range(0,19)
+   *
+   * 2nd page: range(20,39)
+   *
+   * 3rd page: range(40,59)
+   *
+   * 4th page: range(60,79)
+   *
+   * 5th page: range(80,99)
+   */
+  const PAGE_LIMIT = 20;
+  const rangeFrom = currentPage === 1 ? 0 : (currentPage - 1) * PAGE_LIMIT;
+  const rangeTo = rangeFrom + (PAGE_LIMIT - 1);
+  const supabase = createServerSupabaseClient<Database>(sspContext);
+  let expensesQuery = supabase.from('expenses').select('*', { count: 'exact' });
+  if (fromDate !== null && toDate !== null) {
+    expensesQuery = expensesQuery.gte('date', fromDate).lte('date', toDate);
+  }
+  expensesQuery = expensesQuery
+    .order('date', {
+      ascending: false,
+    })
+    .range(rangeFrom, rangeTo);
+
+  const { data: expensesData, count: expensesDataCount } = await expensesQuery;
+  const maxPageNum = Math.round((expensesDataCount ?? 0) / PAGE_LIMIT);
+
+  return {
+    props: {
+      expensesData: expensesData ?? [],
+      maxPageNum,
+    },
+  };
+};
+
+const transformData = (rawExpenseData: ExpensesRow[]): ExpenseGroupProps[] => {
   const transformedData: ExpenseGroupProps[] = [];
+
+  if (rawExpenseData === null) {
+    return [];
+  }
 
   for (const element of rawExpenseData) {
     const { date: rawExpenseDate, ...rawExpenseRest } = element;
@@ -42,99 +112,3 @@ const transformData = (rawExpenseData: RawExpenseData[]) => {
 
   return transformedData;
 };
-
-export const getServerSideProps: GetServerSideProps = async (
-  ctx: GetServerSidePropsContext
-) => {
-  const currentPage = Number(ctx.query.page) || 1;
-  /**
-   * 1st page: range(0,19)
-   *
-   * 2nd page: range(20,39)
-   *
-   * 3rd page: range(40,59)
-   *
-   * 4th page: range(60,79)
-   *
-   * 5th page: range(80,99)
-   */
-  const PAGE_LIMIT = 20;
-  const rangeFrom = currentPage === 1 ? 0 : (currentPage - 1) * PAGE_LIMIT;
-  const rangeTo = rangeFrom + (PAGE_LIMIT - 1);
-  const supabase = createServerSupabaseClient<Database>(ctx);
-  const { data: expensesData, count: expensesDataCount } = await supabase
-    .from('expenses')
-    .select('*', { count: 'exact' })
-    .order('date', {
-      ascending: false,
-    })
-    .range(rangeFrom, rangeTo);
-  const maxPageNum = Math.round((expensesDataCount ?? 0) / PAGE_LIMIT);
-
-  return {
-    props: {
-      expensesData,
-      maxPageNum,
-      currentPage,
-    },
-  };
-};
-
-interface HomeProps {
-  expensesData: RawExpenseData[];
-  maxPageNum: number;
-  currentPage: number;
-}
-
-export default function Home({
-  expensesData,
-  maxPageNum,
-  currentPage,
-}: HomeProps) {
-  const session = useSession();
-  const supabase = useSupabaseClient();
-  const expenseData = transformData(expensesData);
-
-  return !session ? (
-    <Container>
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        theme="dark"
-      />
-    </Container>
-  ) : (
-    <>
-      <Navbar />
-      <Container maxWidth="3xl">
-        <NextLink href="/expenses/add">
-          <Button size="xs" colorScheme="blue" mb="10px">
-            Add Expense
-          </Button>
-        </NextLink>
-        {maxPageNum > currentPage && (
-          <NextLink href={`?page=${currentPage + 1}`}>
-            <Button size="xs" colorScheme="blue" mb="10px" ml="10px">
-              Next Page
-            </Button>
-          </NextLink>
-        )}
-        {currentPage > 1 && (
-          <NextLink href={`?page=${currentPage - 1}`}>
-            <Button size="xs" colorScheme="blue" mb="10px" ml="10px">
-              Previous Page
-            </Button>
-          </NextLink>
-        )}
-      </Container>
-
-      {expenseData.map((elem) => (
-        <ExpenseGroup
-          key={elem.date}
-          date={elem.date}
-          expenses={elem.expenses}
-        />
-      ))}
-    </>
-  );
-}
