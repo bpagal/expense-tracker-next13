@@ -19,7 +19,7 @@ const HomeToolbar = ({ maxPageNum }: HomeToolbarProps) => {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const router = useRouter();
-  const currentPage = Number(router.query.page);
+  const currentPage = Number(router.query.page) || 1;
 
   return (
     <Container maxWidth="3xl" mb="10px">
