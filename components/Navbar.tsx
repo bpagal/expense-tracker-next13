@@ -1,6 +1,7 @@
-import { Link } from '@chakra-ui/react';
+import { Link, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const ListItem = styled.li`
   display: inline;
@@ -9,7 +10,12 @@ const ListItem = styled.li`
 `;
 
 const Navbar = () => {
-  const pages = ['Home'];
+  const { asPath: currentPath } = useRouter();
+
+  const pages = [
+    { name: 'Home', link: '/?page=1' },
+    { name: 'Monthly Expenses', link: '/expenses/monthly' },
+  ];
   return (
     <>
       <ul
@@ -18,13 +24,14 @@ const Navbar = () => {
         }}
       >
         {pages.map((page) => (
-          <ListItem key={page}>
-            <NextLink
-              passHref
-              href={`/${[page === 'Home' ? '?page=1' : page.toLowerCase()]}`}
-            >
-              <Link as="span">{page}</Link>
-            </NextLink>
+          <ListItem key={page.name}>
+            {page.link === currentPath ? (
+              <Text display="inline">{page.name}</Text>
+            ) : (
+              <NextLink passHref href={page.link}>
+                <Link as="span">{page.name}</Link>
+              </NextLink>
+            )}
           </ListItem>
         ))}
       </ul>
