@@ -4,9 +4,11 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import ExpenseGroup, {
   ExpenseGroupProps,
 } from '../components/ExpenseGroup/ExpenseGroup';
-import { ExpensesRow } from '../utils/database.types';
+import { Database, ExpensesRow } from '../utils/database.types';
 import Navbar from '../components/Navbar';
-import HomeToolbar from '../components/HomeToolbar';
+import Pagination from '../components/HomeToolbar/Pagination';
+import DateFilter from '../components/HomeToolbar/DateFilter';
+import { Container } from '@chakra-ui/react';
 
 export default function Home({
   expensesData,
@@ -17,14 +19,18 @@ export default function Home({
   return (
     <>
       <Navbar />
-      <HomeToolbar maxPageNum={maxPageNum} />
-      {expenseData.map((elem) => (
-        <ExpenseGroup
-          key={elem.date}
-          date={elem.date}
-          expenses={elem.expenses}
-        />
-      ))}
+      <Container maxWidth="3xl" mt="10px">
+        <DateFilter />
+        <Pagination maxPageNum={maxPageNum} />
+        {expenseData.map((elem) => (
+          <ExpenseGroup
+            key={elem.date}
+            date={elem.date}
+            expenses={elem.expenses}
+          />
+        ))}
+        <Pagination maxPageNum={maxPageNum} />
+      </Container>
     </>
   );
 }
@@ -50,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<{
   const PAGE_LIMIT = 20;
   const rangeFrom = currentPage === 1 ? 0 : (currentPage - 1) * PAGE_LIMIT;
   const rangeTo = rangeFrom + (PAGE_LIMIT - 1);
-  const supabaseClient = createServerSupabaseClient(sspContext);
+  const supabaseClient = createServerSupabaseClient<Database>(sspContext);
   let expensesQuery = supabaseClient
     .from('expenses')
     .select('*', { count: 'exact' });
