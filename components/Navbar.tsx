@@ -10,12 +10,20 @@ const ListItem = styled.li`
 `;
 
 const Navbar = () => {
-  const { asPath: currentPath } = useRouter();
-
+  const { pathname } = useRouter();
   const pages = [
     { name: 'Home', link: '/?page=1' },
-    { name: 'Monthly Expenses', link: '/expenses/monthly' },
+    {
+      name: 'Monthly Expenses',
+      link: `/expenses/monthly${(() => {
+        const currentDate = new Date();
+        return `?selectedDate=${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }`;
+      })()}&page=1`,
+    },
   ];
+
   return (
     <>
       <ul
@@ -25,12 +33,12 @@ const Navbar = () => {
       >
         {pages.map((page) => (
           <ListItem key={page.name}>
-            {page.link === currentPath ? (
+            {pathname === page.link.split('?')[0] ? (
               <Text display="inline">{page.name}</Text>
             ) : (
-              <NextLink passHref href={page.link}>
-                <Link as="span">{page.name}</Link>
-              </NextLink>
+              <Link as={NextLink} href={page.link}>
+                {page.name}
+              </Link>
             )}
           </ListItem>
         ))}

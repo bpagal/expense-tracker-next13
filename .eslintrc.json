@@ -27,6 +27,7 @@
       }
     ],
     "no-console": "error",
-    "no-else-return": "error"
+    "no-else-return": "error",
+    "no-duplicate-imports": "warn"
   }
 }

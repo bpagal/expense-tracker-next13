@@ -4,11 +4,13 @@ import { useRouter } from 'next/router';
 
 interface PaginationProps {
   maxPageNum: number;
+  addQueryParams?: string;
 }
 
-const Pagination = ({ maxPageNum }: PaginationProps) => {
+const Pagination = ({ maxPageNum, addQueryParams = '' }: PaginationProps) => {
   const router = useRouter();
   const currentPage = Number(router.query.page) || 1;
+  const pathBeforePage = router.pathname === '/' ? '' : router.pathname;
 
   return (
     <HStack justifyContent="space-between" marginY="10px">
@@ -19,7 +21,7 @@ const Pagination = ({ maxPageNum }: PaginationProps) => {
         {maxPageNum > currentPage && (
           <Button
             as={NextLink}
-            href={`/?page=${currentPage + 1}`}
+            href={`${pathBeforePage}?page=${currentPage + 1}${addQueryParams}`}
             colorScheme="blue"
           >
             Next
@@ -28,7 +30,7 @@ const Pagination = ({ maxPageNum }: PaginationProps) => {
         {currentPage > 1 && (
           <Button
             as={NextLink}
-            href={`/?page=${currentPage - 1}`}
+            href={`${pathBeforePage}?page=${currentPage - 1}${addQueryParams}`}
             colorScheme="blue"
           >
             Prev

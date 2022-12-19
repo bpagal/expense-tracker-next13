@@ -1,14 +1,13 @@
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { Container } from '@chakra-ui/react';
 
-import ExpenseGroup, {
-  ExpenseGroupProps,
-} from '../components/ExpenseGroup/ExpenseGroup';
-import { Database, ExpensesRow } from '../utils/database.types';
+import ExpenseGroup from '../components/ExpenseGroup/ExpenseGroup';
 import Navbar from '../components/Navbar';
 import Pagination from '../components/HomeToolbar/Pagination';
 import DateFilter from '../components/HomeToolbar/DateFilter';
-import { Container } from '@chakra-ui/react';
+import { Database, ExpensesRow } from '../utils/database.types';
+import { transformData } from '../utils/expenseHelpers';
 
 export default function Home({
   expensesData,
@@ -78,32 +77,4 @@ export const getServerSideProps: GetServerSideProps<{
       maxPageNum,
     },
   };
-};
-
-const transformData = (rawExpenseData: ExpensesRow[]): ExpenseGroupProps[] => {
-  const transformedData: ExpenseGroupProps[] = [];
-
-  if (rawExpenseData === null) {
-    return [];
-  }
-
-  for (const element of rawExpenseData) {
-    const { date: rawExpenseDate, ...rawExpenseRest } = element;
-
-    if (
-      !transformedData.find((expense) => expense.date === rawExpenseDate)?.date
-    ) {
-      transformedData.push({
-        date: rawExpenseDate,
-        expenses: [rawExpenseRest],
-      });
-    } else {
-      const dateIndex = transformedData.findIndex(
-        (elem) => elem.date === rawExpenseDate
-      );
-      transformedData[dateIndex].expenses.push(rawExpenseRest);
-    }
-  }
-
-  return transformedData;
 };
