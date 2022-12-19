@@ -20,17 +20,17 @@ export interface Database {
       categories: {
         Row: {
           id: string;
-          date: string | null;
+          created_at: string | null;
           name: string | null;
         };
         Insert: {
           id?: string;
-          date?: string | null;
+          created_at?: string | null;
           name?: string | null;
         };
         Update: {
           id?: string;
-          date?: string | null;
+          created_at?: string | null;
           name?: string | null;
         };
       };
@@ -39,16 +39,42 @@ export interface Database {
         Insert: {
           id?: string;
           date?: string | null;
-          amount: number;
-          category: string;
-          details: string;
+          amount?: number | null;
+          category?: string | null;
+          details?: string | null;
         };
         Update: {
           id?: string;
-          date: string;
-          amount: number;
-          category: string;
-          details: string;
+          date?: string | null;
+          amount?: number | null;
+          category?: string | null;
+          details?: string | null;
+        };
+      };
+      profiles: {
+        Row: {
+          id: string;
+          updated_at: string | null;
+          username: string | null;
+          full_name: string | null;
+          avatar_url: string | null;
+          website: string | null;
+        };
+        Insert: {
+          id: string;
+          updated_at?: string | null;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+          website?: string | null;
+        };
+        Update: {
+          id?: string;
+          updated_at?: string | null;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+          website?: string | null;
         };
       };
     };
@@ -56,7 +82,10 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      select_distinct_years_months: {
+        Args: Record<PropertyKey, never>;
+        Returns: { years_months: string };
+      };
     };
     Enums: {
       [_ in never]: never;

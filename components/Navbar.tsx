@@ -14,7 +14,15 @@ const Navbar = () => {
 
   const pages = [
     { name: 'Home', link: '/?page=1' },
-    { name: 'Monthly Expenses', link: '/expenses/monthly' },
+    {
+      name: 'Monthly Expenses',
+      link: `/expenses/monthly/${(() => {
+        const currentDate = new Date();
+        return `?selectedDate=${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }`;
+      })()}&page=1`,
+    },
   ];
   return (
     <>
