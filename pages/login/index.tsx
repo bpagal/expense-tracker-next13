@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (sspContext) => {
   if (session) {
     return {
       redirect: {
-        destination: '?page=1',
+        destination: '/?page=1',
         permanent: false,
       },
     };
