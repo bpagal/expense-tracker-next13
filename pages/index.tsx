@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps<{
     .range(rangeFrom, rangeTo);
 
   const { data: expensesData, count: expensesDataCount } = await expensesQuery;
-  const maxPageNum = Math.round((expensesDataCount ?? 0) / PAGE_LIMIT);
+  const maxPageNum = Math.ceil((expensesDataCount ?? 0) / PAGE_LIMIT);
 
   return {
     props: {
