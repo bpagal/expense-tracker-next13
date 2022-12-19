@@ -21,7 +21,7 @@ const Pagination = ({ maxPageNum, addQueryParams = '' }: PaginationProps) => {
         {maxPageNum > currentPage && (
           <Button
             as={NextLink}
-            href={`${pathBeforePage}/?page=${currentPage + 1}${addQueryParams}`}
+            href={`${pathBeforePage}?page=${currentPage + 1}${addQueryParams}`}
             colorScheme="blue"
           >
             Next
@@ -30,7 +30,7 @@ const Pagination = ({ maxPageNum, addQueryParams = '' }: PaginationProps) => {
         {currentPage > 1 && (
           <Button
             as={NextLink}
-            href={`${pathBeforePage}/?page=${currentPage - 1}${addQueryParams}`}
+            href={`${pathBeforePage}?page=${currentPage - 1}${addQueryParams}`}
             colorScheme="blue"
           >
             Prev

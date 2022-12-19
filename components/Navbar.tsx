@@ -13,7 +13,7 @@ const Navbar = () => {
   const { asPath: currentPath } = useRouter();
 
   const pages = [
-    { name: 'Home', link: '/?page=1' },
+    { name: 'Home', link: '?page=1' },
     {
       name: 'Monthly Expenses',
       link: `/expenses/monthly/${(() => {
