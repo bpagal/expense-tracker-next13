@@ -1,4 +1,5 @@
 import { ExpenseGroupProps } from '../components/ExpenseGroup/ExpenseGroup';
+import { PAGE_LIMIT } from './constants';
 import { ExpensesRow } from './database.types';
 
 export const transformData = (
@@ -29,6 +30,30 @@ export const transformData = (
   }
 
   return transformedData;
+};
+
+export const splitArrIntoChunks = (
+  arrayData: ExpensesRow[],
+  pageLimit = PAGE_LIMIT
+) => {
+  const paginatedData: ExpensesRow[][] = [];
+  const maxPageNum = Math.ceil(arrayData.length / pageLimit);
+
+  for (let index = 0; index < maxPageNum; index++) {
+    /**
+     * index: 0, slice: 0, 20
+     * index: 1, slice: 20, 40
+     */
+    const sliceStart = index * pageLimit;
+    const sliceEnd = (index + 1) * pageLimit;
+
+    paginatedData.push(arrayData.slice(sliceStart, sliceEnd));
+  }
+
+  return {
+    maxPageNum,
+    paginatedData,
+  };
 };
 
 export const getStartEndDate = (date: string) => {
