@@ -7,7 +7,7 @@ export const transformData = (
 ): ExpenseGroupProps[] => {
   const transformedData: ExpenseGroupProps[] = [];
 
-  if (rawExpenseData === null) {
+  if (rawExpenseData === null || rawExpenseData === undefined) {
     return [];
   }
 
