@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import NextLink from 'next/link';
@@ -42,10 +42,8 @@ export default function MonthlyExpenses({
   const transformedExpenseData = transformData(paginatedData[currentPage - 1]);
   const [yearMonth, setYearMonth] = useState(yearsMonthsData[0].years_months);
 
-  useEffect(() => {
-    return () => {
-      setCurrentPage(1);
-    };
+  useLayoutEffect(() => {
+    setCurrentPage(1);
   }, [router.query.selectedDate]);
 
   return (
@@ -74,9 +72,6 @@ export default function MonthlyExpenses({
             <Button
               as={NextLink}
               href={`/expenses/monthly?selectedDate=${yearMonth}`}
-              onClick={() => {
-                setCurrentPage(1);
-              }}
               colorScheme="blue"
             >
               Filter
