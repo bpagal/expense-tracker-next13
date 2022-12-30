@@ -21,6 +21,7 @@ import {
   getStartEndDate,
   splitArrIntoChunks,
 } from '../../utils/expenseHelpers';
+import CategoryBreakdownButton from '../../components/CategoryBreakdown/CategoryBreakdownButton';
 
 export default function MonthlyExpenses({
   expensesData,
@@ -73,6 +74,10 @@ export default function MonthlyExpenses({
               Filter
             </Button>
           )}
+          <CategoryBreakdownButton
+            expensesData={expensesData}
+            totalMonthlyAmount={totalMonthlyAmount}
+          />
         </HStack>
         <Heading size={['sm', 'md']} color="red.500" my="10px">
           Total: {totalMonthlyAmount}
