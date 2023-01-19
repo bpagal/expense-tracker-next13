@@ -28,6 +28,7 @@
     ],
     "no-console": "error",
     "no-else-return": "error",
-    "no-duplicate-imports": "warn"
+    "no-duplicate-imports": "warn",
+    "react/self-closing-comp": "warn"
   }
 }
