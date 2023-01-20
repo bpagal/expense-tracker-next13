@@ -8,6 +8,7 @@ import {
   VStack,
   Button,
   Center,
+  HStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
@@ -153,10 +154,16 @@ export default function Form({
           />
         </FormControl>
       </VStack>
-      <Center>
+      <HStack mt="20px">
         <Button
-          width="200px"
-          mt="20px"
+          colorScheme="red"
+          onClick={onClose}
+          isLoading={isLoading}
+          width="100%"
+        >
+          Close
+        </Button>
+        <Button
           colorScheme="yellow"
           onClick={action === 'Edit' ? handleSubmitEdit : handleSubmitAdd}
           isLoading={isLoading}
@@ -165,10 +172,12 @@ export default function Form({
             amount.trim() === '' ||
             category.trim() === ''
           }
+          width="100%"
         >
           Submit
         </Button>
-      </Center>
+        {/* </Cener> */}
+      </HStack>
     </>
   );
 }
