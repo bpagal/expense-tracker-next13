@@ -95,6 +95,7 @@ export default function MonthlyExpenses({
               placeholder="Select Category"
               onChange={(event) => {
                 setCategory(event.target.value);
+                setCurrentPage(1);
               }}
             >
               {categories.map((category) => (
