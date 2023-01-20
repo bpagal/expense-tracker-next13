@@ -16,7 +16,7 @@ const CategoryBreakdownButton = ({
   return (
     <>
       <Button onClick={onOpen} colorScheme="blue">
-        Category Breakdown
+        Detailed
       </Button>
 
       <BreakdownModal

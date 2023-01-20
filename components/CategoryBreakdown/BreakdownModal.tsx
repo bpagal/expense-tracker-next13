@@ -44,7 +44,7 @@ const BreakdownModal = ({
           <OrderedList>
             {categoriesBreakdown.map((elem) => (
               <ListItem key={elem.name}>
-                {elem.name}: ₱ {elem.totalAmount}
+                {elem.name}: ₱ {Number(elem.totalAmount.toFixed(2))}
               </ListItem>
             ))}
           </OrderedList>

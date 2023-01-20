@@ -1,31 +1,22 @@
-import { IconButton, VStack, Button, useDisclosure } from '@chakra-ui/react';
-import { FaBars } from 'react-icons/fa';
 import {
+  IconButton,
+  VStack,
+  Button,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { FaBars } from 'react-icons/fa';
+
 import DeleteExpenseDialog from '../DeleteExpenseDialog';
+import AddExpenseModal from '../AddEditExpense/AddEditExpenseModal';
+import { ExpenseAddForm } from '../../utils/database.types';
 
-export interface OptionMenuProps {
-  category: string;
-  details: string;
-  amount: number;
-  date: string;
-  id: string;
-}
-
-const OptionMenu = ({
-  category,
-  details,
-  amount,
-  date,
-  id,
-}: OptionMenuProps) => {
+const OptionMenu = (expenseData: ExpenseAddForm) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -43,27 +34,16 @@ const OptionMenu = ({
         <PopoverCloseButton />
         <PopoverBody>
           <VStack spacing="1rem" align="start">
-            <NextLink
-              href={{
-                pathname: `/expenses/edit/${id}`,
-                query: {
-                  amount,
-                  category,
-                  details,
-                  date,
-                },
-              }}
-            >
-              <Button colorScheme="blue">Edit</Button>
-            </NextLink>
+            <AddExpenseModal action="Edit" initialExpense={expenseData} />
+            <AddExpenseModal action="Copy" initialExpense={expenseData} />
             <Button colorScheme="red" onClick={onOpen}>
               Delete
             </Button>
             <DeleteExpenseDialog
               isOpen={isOpen}
               onClose={onClose}
-              expenseId={id}
-              expenseDetails={details}
+              expenseId={expenseData.id}
+              expenseDetails={expenseData.details}
             />
           </VStack>
         </PopoverBody>

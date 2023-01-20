@@ -13,6 +13,20 @@ export type ExpensesRow = {
   category: string;
   details: string;
 };
+export type ExpenseAddForm = {
+  details: string;
+  amount: string;
+  category: string;
+  id: string;
+  date: string;
+};
+export type ExpenseAddEdit = {
+  details: string;
+  amount: number;
+  category: string;
+  id?: string;
+  date?: string;
+};
 
 export interface Database {
   public: {
@@ -36,20 +50,8 @@ export interface Database {
       };
       expenses: {
         Row: ExpensesRow;
-        Insert: {
-          id?: string;
-          date?: string | null;
-          amount?: number | null;
-          category?: string | null;
-          details?: string | null;
-        };
-        Update: {
-          id?: string;
-          date?: string | null;
-          amount?: number | null;
-          category?: string | null;
-          details?: string | null;
-        };
+        Insert: ExpenseAddEdit;
+        Update: ExpenseAddEdit;
       };
       profiles: {
         Row: {

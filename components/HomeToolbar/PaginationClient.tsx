@@ -1,5 +1,5 @@
 import { Button, HStack } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import AddExpenseModal from '../AddEditExpense/AddEditExpenseModal';
 
 interface PaginationProps {
   maxPageNum: number;
@@ -16,9 +16,7 @@ const PaginationClient = ({
 }: PaginationProps) => {
   return (
     <HStack justifyContent="space-between" marginY="10px">
-      <Button as={NextLink} href="/expenses/add" colorScheme="blue">
-        Add
-      </Button>
+      <AddExpenseModal action="Add" />
       <HStack>
         {currentPage > 1 && (
           <Button colorScheme="blue" onClick={prevBtnOnclick}>
