@@ -6,6 +6,7 @@ import {
   Button,
   Container,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   HStack,
@@ -27,7 +28,15 @@ export default function MonthlyExpenses({
   expensesData,
   yearsMonthsData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { maxPageNum, paginatedData } = splitArrIntoChunks(expensesData);
+  const [category, setCategory] = useState('');
+  const categories = Array.from(
+    new Set(expensesData.map((elem) => elem.category))
+  );
+  const filteredExpensesData = category
+    ? expensesData.filter((elem) => elem.category === category)
+    : expensesData;
+  const { maxPageNum, paginatedData } =
+    splitArrIntoChunks(filteredExpensesData);
   const totalMonthlyAmount = useMemo(() => {
     return expensesData
       .reduce((prevValue, expense) => {
@@ -78,6 +87,24 @@ export default function MonthlyExpenses({
             expensesData={expensesData}
             totalMonthlyAmount={totalMonthlyAmount}
           />
+          <FormControl width="150px">
+            <FormLabel>Category</FormLabel>
+            <Select
+              size="sm"
+              value={category}
+              placeholder="Select Category"
+              onChange={(event) => {
+                setCategory(event.target.value);
+              }}
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </Select>
+            <FormErrorMessage>Category is required.</FormErrorMessage>
+          </FormControl>
         </HStack>
         <Heading size={['sm', 'md']} color="red.500" my="10px">
           Total: {totalMonthlyAmount}
