@@ -10,7 +10,7 @@ import {
   Center,
   HStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { Database, ExpenseAddForm } from '../../utils/database.types';
@@ -66,7 +66,7 @@ export default function Form({
     setLoading(false);
     if (error === null && statusText) {
       onClose();
-      await router.push('/');
+      router.replace(router.asPath);
     }
   };
   const handleSubmitEdit = async () => {
@@ -87,7 +87,7 @@ export default function Form({
     setLoading(false);
     if (error === null && statusText) {
       onClose();
-      await router.push('/');
+      router.replace(router.asPath);
     }
   };
 
