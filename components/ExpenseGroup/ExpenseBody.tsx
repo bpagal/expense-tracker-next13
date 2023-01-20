@@ -41,7 +41,7 @@ const ExpenseBody = ({
         <OptionMenu
           category={category}
           details={details}
-          amount={amount}
+          amount={amount.toString()}
           date={date}
           id={id}
         />
