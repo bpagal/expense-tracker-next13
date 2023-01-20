@@ -13,7 +13,7 @@ import { ExpenseAddForm } from '../../utils/database.types';
 import Form from './Form';
 
 interface AddEditExpenseModalProps {
-  action: 'Add' | 'Edit';
+  action: 'Add' | 'Edit' | 'Copy';
   initialExpense?: ExpenseAddForm;
 }
 

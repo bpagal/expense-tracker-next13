@@ -17,7 +17,7 @@ import categories from '../Categories';
 import { useRouter } from 'next/router';
 
 interface FormProps {
-  action: 'Add' | 'Edit';
+  action: 'Add' | 'Edit' | 'Copy';
   onClose: () => void;
   initialExpense?: ExpenseAddForm;
 }
@@ -158,7 +158,7 @@ export default function Form({
           width="200px"
           mt="20px"
           colorScheme="yellow"
-          onClick={action === 'Add' ? handleSubmitAdd : handleSubmitEdit}
+          onClick={action === 'Edit' ? handleSubmitEdit : handleSubmitAdd}
           isLoading={isLoading}
           disabled={
             details.trim() === '' ||

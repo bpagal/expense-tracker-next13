@@ -35,6 +35,7 @@ const OptionMenu = (expenseData: ExpenseAddForm) => {
         <PopoverBody>
           <VStack spacing="1rem" align="start">
             <AddExpenseModal action="Edit" initialExpense={expenseData} />
+            <AddExpenseModal action="Copy" initialExpense={expenseData} />
             <Button colorScheme="red" onClick={onOpen}>
               Delete
             </Button>
