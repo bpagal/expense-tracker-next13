@@ -1,4 +1,3 @@
-import { Container } from '@chakra-ui/react';
 import ExpenseHeader from './ExpenseHeader';
 import ExpenseBody from './ExpenseBody';
 

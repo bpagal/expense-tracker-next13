@@ -35,7 +35,7 @@ const DeleteExpenseDialog = ({
   const handleDelete = async () => {
     setIsLoading(true);
 
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
       .from('expenses')
       .delete()
       .eq('id', expenseId);
