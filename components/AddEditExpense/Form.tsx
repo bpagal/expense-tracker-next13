@@ -7,10 +7,9 @@ import {
   Select,
   VStack,
   Button,
-  Center,
   HStack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import { Database, ExpenseAddForm } from '../../utils/database.types';
