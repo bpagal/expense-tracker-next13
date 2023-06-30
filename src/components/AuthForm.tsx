@@ -14,7 +14,7 @@ export default function AuthForm() {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_IN') {
-        router.push('/account');
+        router.replace('/account');
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
