@@ -11,7 +11,21 @@ export default function AuthForm() {
     <Auth
       supabaseClient={supabase}
       view="sign_in"
-      appearance={{ theme: ThemeSupa }}
+      appearance={{
+        theme: ThemeSupa,
+        style: {
+          button: {
+            backgroundColor: '#2563eb',
+            border: 0,
+          },
+          input: {
+            backgroundColor: '#1f2937',
+          },
+          label: {
+            color: 'white',
+          },
+        },
+      }}
       theme="dark"
       showLinks={false}
       providers={[]}
