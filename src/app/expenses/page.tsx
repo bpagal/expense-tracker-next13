@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database, ExpensesRow } from '../../utils/database.types';
 import Link from 'next/link';
+import { DialogContainer } from '../../components/ExpenseForm/DialogContainer';
 
 const PAGE_SIZE = 20;
 
@@ -40,25 +41,29 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
 
   return (
     <div className="mx-auto px-3 sm:container text-white">
-      <div className="flex flex-row mt-2 gap-2 justify-end">
-        {page === 1 ? (
-          <h2 className="px-2 py-1 text-gray-600 cursor-not-allowed">
-            &lt; Prev
-          </h2>
-        ) : (
+      <div className="flex flex-row mt-2 gap-2 justify-between">
+        <DialogContainer />
+        <div>
+          {page === 1 ? (
+            <span className="px-2 py-1 text-gray-600 cursor-not-allowed">
+              &lt; Prev
+            </span>
+          ) : (
+            <Link
+              className="px-2 py-1 no-underline hover:underline"
+              href={`/expenses?page=${page - 1}`}
+            >
+              &lt; Prev
+            </Link>
+          )}
+          <span className="mx-3">Page {page}</span>
           <Link
-            className="px-2 py-1 no-underline hover:underline"
-            href={`/expenses?page=${page - 1}`}
+            className="no-underline hover:underline"
+            href={`/expenses?page=${page + 1}`}
           >
-            &lt; Prev
+            Next &gt;
           </Link>
-        )}
-        <Link
-          className="px-2 py-1 no-underline hover:underline"
-          href={`/expenses?page=${page + 1}`}
-        >
-          Next &gt;
-        </Link>
+        </div>
       </div>
       {transformedExpensesData.map((elem) => {
         const formattedDate = new Date(elem.date).toDateString();
