@@ -4,11 +4,10 @@
 
 .menu {
   position: absolute;
+  right: 0;
   list-style-type: none;
-  margin: 5px 0;
   padding: 0;
   border: 1px solid grey;
-  width: 150px;
 }
 
 .menu > li {

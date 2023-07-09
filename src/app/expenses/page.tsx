@@ -3,6 +3,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database, ExpensesRow } from '../../utils/database.types';
 import Link from 'next/link';
 import { DialogContainer } from '../../components/ExpenseForm/DialogContainer';
+import ActionsPopover from '../../components/ActionsPopover/ActionsPopover';
 
 const PAGE_SIZE = 20;
 
@@ -85,6 +86,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
                 <h2>{expense.details}</h2>
                 <h2 className="text-red-700">₱ {expense.amount}</h2>
                 <h2 className="text-gray-500">{expense.category}</h2>
+                <ActionsPopover expense={expense} key={expense.id} />
               </div>
             ))}
           </div>
