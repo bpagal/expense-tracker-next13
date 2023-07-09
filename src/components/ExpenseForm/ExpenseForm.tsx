@@ -22,6 +22,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement>(
     const {
       register,
       handleSubmit,
+      reset: resetFields,
       formState: { errors },
     } = useForm<FormData>({
       defaultValues: {
@@ -31,6 +32,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement>(
     const { apiStatus, setPending, setResolved, setRejected } = useLoading();
     const handleOnClose = () => {
       if (ref !== null && typeof ref !== 'function') {
+        resetFields();
         ref.current?.close();
       }
     };
