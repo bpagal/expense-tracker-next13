@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-import ExpensesLoading from './loading';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,9 +9,5 @@ export default function ExpensesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div>
-      <Suspense fallback={<ExpensesLoading />}>{children}</Suspense>;
-    </div>
-  );
+  return <section>{children}</section>;
 }
