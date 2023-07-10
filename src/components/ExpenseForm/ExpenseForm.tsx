@@ -142,6 +142,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
 
             <div className="grid grid-cols-2 gap-4">
               <button
+                type="button"
                 className={`px-2 py-1 rounded-md bg-red-600 hover:bg-red-700${
                   apiStatus === 'pending'
                     ? ' cursor-not-allowed disabled:bg-red-900'
@@ -153,6 +154,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
                 Cancel
               </button>
               <button
+                type="submit"
                 className={`px-2 py-1 rounded-md bg-blue-600 hover:bg-blue-700${
                   apiStatus === 'pending'
                     ? ' cursor-not-allowed disabled:bg-red-900'
