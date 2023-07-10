@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { DialogContainer } from '../../../components/ExpenseForm/DialogContainer';
 import ActionsPopover from '../../../components/ActionsPopover/ActionsPopover';
 import ExpensesGrid from '../../../components/ExpensesGrid/ExpensesGrid';
+import Filters from '../../../components/Filters/Filters';
 
 const PAGE_SIZE = 20;
 
@@ -20,17 +21,18 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const rangeFrom = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
   const rangeTo = rangeFrom + (PAGE_SIZE - 1);
-  const currentDate = new Date();
-  const currentDateFormatted = `selectedDate=${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1
-  }`;
+  const currentDateFormatted = `selectedDate=${searchParams.selectedDate}`;
+  // TODO use this again
   const selectedDate = getStartEndDate(searchParams.selectedDate);
+  const { data: yearsMonthsData } = await supabase.rpc(
+    'select_distinct_years_months'
+  );
 
   const { data: expensesData } = await supabase
     .from('expenses')
     .select('id, date, amount, category, details')
-    .gte('date', '2023-4-1')
-    .lte('date', '2023-7-13')
+    .gte('date', selectedDate.startDate)
+    .lte('date', selectedDate.endDate)
     .order('date', {
       ascending: false,
     })
@@ -49,11 +51,19 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
       </div>
     );
   }
+  if (yearsMonthsData === null) {
+    return (
+      <div className="mx-auto px-3 sm:container">
+        <h2 className="text-white text-center">No years months data</h2>
+      </div>
+    );
+  }
 
   const transformedExpensesData = getTransformedData(expensesData);
 
   return (
     <div className="mx-auto px-3 sm:container text-white">
+      <Filters yearsMonths={yearsMonthsData} />
       <div className="flex flex-row mt-2 gap-2 justify-between">
         <DialogContainer />
         <div>

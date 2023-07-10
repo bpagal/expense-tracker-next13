@@ -27,6 +27,7 @@ export type ExpenseAddEdit = {
   id?: string;
   date?: string;
 };
+export type YearsMonths = { years_months: string };
 
 export interface Database {
   public: {
@@ -86,7 +87,7 @@ export interface Database {
     Functions: {
       select_distinct_years_months: {
         Args: Record<PropertyKey, never>;
-        Returns: { years_months: string };
+        Returns: YearsMonths[];
       };
     };
     Enums: {
