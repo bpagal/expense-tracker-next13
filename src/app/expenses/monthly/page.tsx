@@ -1,30 +1,35 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database, ExpensesRow } from '../../utils/database.types';
+import { Database, ExpensesRow } from '../../../utils/database.types';
 import Link from 'next/link';
-import { DialogContainer } from '../../components/ExpenseForm/DialogContainer';
-import ActionsPopover from '../../components/ActionsPopover/ActionsPopover';
-import ExpensesGrid from '../../components/ExpensesGrid/ExpensesGrid';
+import { DialogContainer } from '../../../components/ExpenseForm/DialogContainer';
+import ActionsPopover from '../../../components/ActionsPopover/ActionsPopover';
+import ExpensesGrid from '../../../components/ExpensesGrid/ExpensesGrid';
 
 const PAGE_SIZE = 20;
 
 interface PageProps {
   searchParams: {
     page: string;
+    selectedDate: string;
   };
 }
 
-export default async function ExpensesPage({ searchParams }: PageProps) {
+export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const page = Number(searchParams.page);
   const supabase = createServerComponentClient<Database>({ cookies });
   const rangeFrom = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
   const rangeTo = rangeFrom + (PAGE_SIZE - 1);
-
+  const selectedDate = getStartEndDate(searchParams.selectedDate);
   const { data: expensesData } = await supabase
     .from('expenses')
     .select('id, date, amount, category, details')
-    .order('date', { ascending: false })
-    .range(rangeFrom, rangeTo);
+    .gte('date', selectedDate.startDate)
+    .lte('date', selectedDate.endDate)
+    .order('date', {
+      ascending: false,
+    });
+
   /**
    * page 1: 0, 19,
    * page 2: 20, 39
@@ -93,4 +98,17 @@ const getTransformedData = (mData: ExpensesRow[]) => {
   });
 
   return tempArr;
+};
+
+const getStartEndDate = (date: string) => {
+  const [year, month] = date.split('-').map((elem) => Number(elem));
+  const lastDayOfDate = new Date(year, month, 0);
+  const endDate = `${year}-${
+    lastDayOfDate.getMonth() + 1
+  }-${lastDayOfDate.getDate()}`;
+
+  return {
+    startDate: `${date}-01`,
+    endDate,
+  };
 };
