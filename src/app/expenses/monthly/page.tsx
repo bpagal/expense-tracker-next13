@@ -20,15 +20,21 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const rangeFrom = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
   const rangeTo = rangeFrom + (PAGE_SIZE - 1);
+  const currentDate = new Date();
+  const currentDateFormatted = `selectedDate=${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1
+  }`;
   const selectedDate = getStartEndDate(searchParams.selectedDate);
+
   const { data: expensesData } = await supabase
     .from('expenses')
     .select('id, date, amount, category, details')
-    .gte('date', selectedDate.startDate)
-    .lte('date', selectedDate.endDate)
+    .gte('date', '2023-4-1')
+    .lte('date', '2023-7-13')
     .order('date', {
       ascending: false,
-    });
+    })
+    .range(rangeFrom, rangeTo);
 
   /**
    * page 1: 0, 19,
@@ -58,7 +64,9 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
           ) : (
             <Link
               className="px-2 py-1 no-underline hover:underline"
-              href={`/expenses?page=${page - 1}`}
+              href={`/expenses/monthly?page=${
+                page - 1
+              }&${currentDateFormatted}`}
             >
               &lt; Prev
             </Link>
@@ -66,7 +74,7 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
           <span className="mx-3">Page {page}</span>
           <Link
             className="no-underline hover:underline"
-            href={`/expenses?page=${page + 1}`}
+            href={`/expenses/monthly?page=${page + 1}&${currentDateFormatted}`}
           >
             Next &gt;
           </Link>
