@@ -4,6 +4,7 @@ import { Database, ExpensesRow } from '../../utils/database.types';
 import Link from 'next/link';
 import { DialogContainer } from '../../components/ExpenseForm/DialogContainer';
 import ActionsPopover from '../../components/ActionsPopover/ActionsPopover';
+import ExpensesGrid from '../../components/ExpensesGrid/ExpensesGrid';
 
 const PAGE_SIZE = 20;
 
@@ -66,37 +67,12 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
           </Link>
         </div>
       </div>
-      {transformedExpensesData.map((elem) => {
-        const formattedDate = new Date(elem.date).toDateString();
-
-        return (
-          <div
-            key={elem.date}
-            className="border border-gray-600 rounded-md p-2 my-2"
-          >
-            <div className="grid grid-cols-[1fr,_auto]">
-              <h2 className="font-semibold text-blue-600">{formattedDate}</h2>
-              <h2 className="font-semibold text-red-700 mb-2">₱ 5600</h2>
-            </div>
-            {elem.expenses?.map((expense) => (
-              <div
-                className="grid grid-cols-[1fr,_auto] [&:not(:last-child)]:border-b border-gray-600 [&:not(:last-child)]:mb-2"
-                key={expense.id}
-              >
-                <h2>{expense.details}</h2>
-                <h2 className="text-red-700">₱ {expense.amount}</h2>
-                <h2 className="text-gray-500">{expense.category}</h2>
-                <ActionsPopover expense={expense} key={expense.id} />
-              </div>
-            ))}
-          </div>
-        );
-      })}
+      <ExpensesGrid transformedExpensesData={transformedExpensesData} />
     </div>
   );
 }
 
-interface TransformedData {
+export interface TransformedData {
   date: string;
   expenses: ExpensesRow[];
 }
