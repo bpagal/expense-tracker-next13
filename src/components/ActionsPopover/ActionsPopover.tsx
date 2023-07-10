@@ -6,6 +6,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { ExpensesRow } from '../../utils/database.types';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { ExpenseForm } from '../ExpenseForm/ExpenseForm';
+import { DeleteExpense } from './DeleteExpense';
 
 interface ActionsPopoverProps {
   expense: ExpensesRow;
@@ -13,6 +14,7 @@ interface ActionsPopoverProps {
 
 export default function ActionsPopover({ expense }: ActionsPopoverProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const deleteExpenseRef = useRef<HTMLDialogElement>(null);
   const [dialogAction, setDialogAction] = useState<'edit' | 'copy'>('edit');
 
   const handleEdit = () => {
@@ -21,6 +23,9 @@ export default function ActionsPopover({ expense }: ActionsPopoverProps) {
   const handleCopy = () => {
     setDialogAction('copy');
     dialogRef.current?.showModal();
+  };
+  const handleDelete = () => {
+    deleteExpenseRef.current?.showModal();
   };
 
   return (
@@ -38,6 +43,9 @@ export default function ActionsPopover({ expense }: ActionsPopoverProps) {
           <button key="copy" onClick={handleCopy}>
             Copy
           </button>,
+          <button key="delete" onClick={handleDelete}>
+            Delete
+          </button>,
         ]}
       />
       <ExpenseForm
@@ -45,6 +53,7 @@ export default function ActionsPopover({ expense }: ActionsPopoverProps) {
         selectedExpense={expense}
         ref={dialogRef}
       />
+      <DeleteExpense selectedExpense={expense} ref={deleteExpenseRef} />
     </>
   );
 }

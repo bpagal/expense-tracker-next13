@@ -8,6 +8,7 @@
   list-style-type: none;
   padding: 0;
   border: 1px solid grey;
+  z-index: 100;
 }
 
 .menu > li {
