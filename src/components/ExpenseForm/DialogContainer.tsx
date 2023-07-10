@@ -17,7 +17,7 @@ export function DialogContainer() {
       >
         Add
       </button>
-      <ExpenseForm ref={dialogRef} />
+      <ExpenseForm ref={dialogRef} action="add" />
     </>
   );
 }

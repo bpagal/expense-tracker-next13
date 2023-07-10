@@ -3,7 +3,7 @@
 import { forwardRef } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
-import { Database } from '../../utils/database.types';
+import { Database, ExpensesRow } from '../../utils/database.types';
 import { useLoading } from '../../hooks/useLoading';
 import { useRouter } from 'next/navigation';
 import './DialogContainer.css';
@@ -15,8 +15,13 @@ interface FormData {
   date: string;
 }
 
-export const ExpenseForm = forwardRef<HTMLDialogElement>(
-  function ExpenseFormRef(_props, ref) {
+interface ExpenseFormProps {
+  action: 'add' | 'edit' | 'copy';
+  selectedExpense?: ExpensesRow;
+}
+
+export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
+  function ExpenseFormRef({ action, selectedExpense }, ref) {
     const supabase = createClientComponentClient<Database>();
     const router = useRouter();
     const {
@@ -25,9 +30,12 @@ export const ExpenseForm = forwardRef<HTMLDialogElement>(
       reset: resetFields,
       formState: { errors },
     } = useForm<FormData>({
-      defaultValues: {
-        date: new Date().toISOString().split('T')[0],
-      },
+      defaultValues:
+        action === 'add'
+          ? {
+              date: new Date().toISOString().split('T')[0],
+            }
+          : selectedExpense,
     });
     const { apiStatus, setPending, setResolved, setRejected } = useLoading();
     const handleOnClose = () => {
@@ -36,13 +44,29 @@ export const ExpenseForm = forwardRef<HTMLDialogElement>(
         ref.current?.close();
       }
     };
+
+    const apiRequest = async (formData: FormData) => {
+      if (action === 'add' || action === 'copy') {
+        const { error } = await supabase.from('expenses').insert(formData);
+
+        return error;
+      } else if (action === 'edit') {
+        const { error } = await supabase
+          .from('expenses')
+          .update(formData)
+          .eq('id', selectedExpense?.id);
+
+        return error;
+      }
+    };
+
     const onSubmit = handleSubmit(async (data) => {
       setPending();
       const formData: typeof data = {
         ...data,
         amount: Number(data.amount),
       };
-      const { error } = await supabase.from('expenses').insert(formData);
+      const error = await apiRequest(formData);
 
       if (error) {
         setRejected();
@@ -50,13 +74,14 @@ export const ExpenseForm = forwardRef<HTMLDialogElement>(
       }
 
       setResolved();
-      router.push('/expenses?page=1');
+      router.refresh();
       handleOnClose();
     });
 
     return (
       <dialog ref={ref} className="w-[350px] bg-gray-950 text-white">
-        <form method="dialog" onSubmit={onSubmit} className="p-3">
+        <h2 className="text-xl">{action.toUpperCase()}</h2>
+        <form onSubmit={onSubmit} className="p-3">
           <div className="grid gap-y-3">
             <label htmlFor="details">Details</label>
             <textarea

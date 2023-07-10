@@ -1,35 +1,44 @@
 'use client';
 
-import { cloneElement, useState } from 'react';
+import { cloneElement, useRef, useState } from 'react';
 import './ActionsPopover.css';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { ExpensesRow } from '../../utils/database.types';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { ExpenseForm } from '../ExpenseForm/ExpenseForm';
 
 interface ActionsPopoverProps {
   expense: ExpensesRow;
 }
 
 export default function ActionsPopover({ expense }: ActionsPopoverProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [dialogAction, setDialogAction] = useState<'edit' | 'copy'>('edit');
+
   const handleEdit = () => {
-    console.log('💖💛💙💜💚 EDIT');
-    console.log(expense.details);
-    console.log(expense.id);
+    dialogRef.current?.showModal();
   };
 
   return (
-    <Dropdown
-      trigger={
-        <button>
-          <AiOutlineMenu className="text-right" />
-        </button>
-      }
-      menu={[
-        <button key="edit" onClick={handleEdit}>
-          Edit
-        </button>,
-      ]}
-    />
+    <>
+      <Dropdown
+        trigger={
+          <button>
+            <AiOutlineMenu className="text-right" />
+          </button>
+        }
+        menu={[
+          <button key="edit" onClick={handleEdit}>
+            Edit
+          </button>,
+        ]}
+      />
+      <ExpenseForm
+        action={dialogAction}
+        selectedExpense={expense}
+        ref={dialogRef}
+      />
+    </>
   );
 }
 
@@ -44,7 +53,6 @@ function Dropdown({ trigger, menu }: DropdownProps) {
     setOpen(!open);
   };
   const ref = useOutsideClick(() => {
-    console.log('💖💛💙💜💚 useOutsideClick');
     setOpen(false);
   });
   const handleOutsideClickStopPropagation = (
