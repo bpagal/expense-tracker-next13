@@ -35,7 +35,12 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
           ? {
               date: new Date().toISOString().split('T')[0],
             }
-          : selectedExpense,
+          : {
+              amount: selectedExpense?.amount,
+              category: selectedExpense?.category,
+              date: selectedExpense?.date,
+              details: selectedExpense?.details,
+            },
     });
     const { apiStatus, setPending, setResolved, setRejected } = useLoading();
     const handleOnClose = () => {

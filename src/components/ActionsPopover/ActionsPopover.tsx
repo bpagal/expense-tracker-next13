@@ -18,6 +18,10 @@ export default function ActionsPopover({ expense }: ActionsPopoverProps) {
   const handleEdit = () => {
     dialogRef.current?.showModal();
   };
+  const handleCopy = () => {
+    setDialogAction('copy');
+    dialogRef.current?.showModal();
+  };
 
   return (
     <>
@@ -30,6 +34,9 @@ export default function ActionsPopover({ expense }: ActionsPopoverProps) {
         menu={[
           <button key="edit" onClick={handleEdit}>
             Edit
+          </button>,
+          <button key="copy" onClick={handleCopy}>
+            Copy
           </button>,
         ]}
       />
