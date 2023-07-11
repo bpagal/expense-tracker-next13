@@ -12,7 +12,8 @@ const PAGE_SIZE = 20;
 interface PageProps {
   searchParams: {
     page: string;
-    selectedDate: string;
+    year: string;
+    month: string;
   };
 }
 
@@ -21,9 +22,9 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const rangeFrom = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
   const rangeTo = rangeFrom + (PAGE_SIZE - 1);
-  const currentDateFormatted = `selectedDate=${searchParams.selectedDate}`;
+  const currentDateFormatted = `selectedDate=${searchParams.year}`;
   // TODO use this again
-  const selectedDate = getStartEndDate(searchParams.selectedDate);
+  const selectedDate = getStartEndDate(searchParams.year, searchParams.month);
   const { data: yearsMonthsData } = await supabase.rpc(
     'select_distinct_years_months'
   );
@@ -63,7 +64,7 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
 
   return (
     <div className="mx-auto px-3 sm:container text-white">
-      <Filters yearsMonths={yearsMonthsData} />
+      <Filters />
       <div className="flex flex-row mt-2 gap-2 justify-between">
         <DialogContainer />
         <div>
@@ -118,15 +119,29 @@ const getTransformedData = (mData: ExpensesRow[]) => {
   return tempArr;
 };
 
-const getStartEndDate = (date: string) => {
-  const [year, month] = date.split('-').map((elem) => Number(elem));
-  const lastDayOfDate = new Date(year, month, 0);
+const getStartEndDate = (year: string, month: string) => {
+  const ALL_MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const numberMonth = ALL_MONTHS.findIndex((elem) => elem === month) + 1;
+  const lastDayOfDate = new Date(Number(year), numberMonth, 0);
+
   const endDate = `${year}-${
     lastDayOfDate.getMonth() + 1
   }-${lastDayOfDate.getDate()}`;
-
   return {
-    startDate: `${date}-01`,
+    startDate: `${year}-${month}-01`,
     endDate,
   };
 };

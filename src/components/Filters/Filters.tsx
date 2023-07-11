@@ -1,32 +1,53 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { YearsMonths } from '../../utils/database.types';
-import { useRouter } from 'next/navigation';
+import DropdownLinks from '../DropdownLinks/DropdownLinks';
 
-interface FiltersProps {
-  yearsMonths: YearsMonths[];
-}
-
-export default function Filters({ yearsMonths }: FiltersProps) {
-  const router = useRouter();
+export default function Filters() {
+  const searchParams = useSearchParams();
+  const paramYear = searchParams.get('year');
+  const paramMonth = searchParams.get('month');
+  const years = ['2023', '2022', '2021', '2020'];
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   return (
-    <div className="flex">
-      <select
-        onChange={(e) => {
-          router.push(
-            `/expenses/monthly?page=1&selectedDate=${e.target.value}`
-          );
+    <div className="flex gap-x-4">
+      <DropdownLinks
+        items={years}
+        label="Year"
+        searchParams={{
+          activeParam: paramYear ?? '',
+          name: 'year',
+          otherParams: `page=1&month=${paramMonth}`,
         }}
-        className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md"
-      >
-        {yearsMonths.map((yearsMonth) => (
-          <option key={yearsMonth.years_months} value={yearsMonth.years_months}>
-            {yearsMonth.years_months}
-          </option>
-        ))}
-      </select>
+      />
+      <DropdownLinks
+        items={months}
+        label="Month"
+        searchParams={{
+          activeParam: paramMonth ?? '',
+          name: 'month',
+          otherParams: `page=1&year=${paramYear}`,
+        }}
+      />
     </div>
   );
 }
