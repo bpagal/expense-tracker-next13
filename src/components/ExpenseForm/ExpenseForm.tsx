@@ -91,6 +91,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
             <label htmlFor="details">Details</label>
             <textarea
               className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+              id="details"
               {...register('details', {
                 required: 'Details is required',
               })}
@@ -104,6 +105,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
             <input
               className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               type="number"
+              id="amount"
               {...register('amount', {
                 required: 'Amount is required',
               })}
@@ -116,6 +118,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
             <label htmlFor="category">Category</label>
             <select
               className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md"
+              id="category"
               {...register('category', {
                 required: 'Category is required',
               })}
@@ -135,6 +138,7 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
             <input
               className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               type="date"
+              id="date"
               {...register('date', {
                 required: 'Date is required',
               })}
