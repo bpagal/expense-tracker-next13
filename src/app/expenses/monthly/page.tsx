@@ -134,14 +134,14 @@ const getStartEndDate = (year: string, month: string) => {
     'November',
     'December',
   ];
-  const numberMonth = ALL_MONTHS.findIndex((elem) => elem === month) + 1;
-  const lastDayOfDate = new Date(Number(year), numberMonth, 0);
+  const monthNum = ALL_MONTHS.findIndex((elem) => elem === month) + 1;
+  const lastDayOfDate = new Date(Number(year), monthNum, 0);
 
   const endDate = `${year}-${
     lastDayOfDate.getMonth() + 1
   }-${lastDayOfDate.getDate()}`;
   return {
-    startDate: `${year}-${month}-01`,
+    startDate: `${year}-${monthNum}-01`,
     endDate,
   };
 };
