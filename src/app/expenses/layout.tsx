@@ -10,10 +10,8 @@ export default function ExpensesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentDate = new Date();
-  const currentDateFormatted = `selectedDate=${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1
-  }`;
+  // TODO change this to current year and month
+  const currentDateFormatted = 'year=2023&month=July';
 
   return (
     <section>
