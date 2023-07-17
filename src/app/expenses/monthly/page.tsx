@@ -28,13 +28,17 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const { data: yearsMonthsData } = await supabase.rpc(
     'select_distinct_years_months'
   );
-  const { data: sumYearMonth } = await supabase.rpc('select_sum_year_month', {
-    year: '2023',
-    month: '04',
-  });
+  const monthNum =
+    ALL_MONTHS.findIndex((elem) => elem === searchParams.month) + 1;
+  const monthNumString =
+    monthNum.toString().length === 1
+      ? `0${monthNum.toString()}`
+      : monthNum.toString();
 
-  console.log('💖💛💙💜💚 sumYearMonth');
-  console.log(typeof sumYearMonth);
+  const { data: sumYearMonth } = await supabase.rpc('select_sum_year_month', {
+    year: searchParams.year,
+    month: monthNumString,
+  });
 
   const { data: expensesData } = await supabase
     .from('expenses')
@@ -71,6 +75,9 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
 
   return (
     <div className="mx-auto px-3 sm:container text-white">
+      <h2 className="text-xl text-red-700 font-semibold">
+        Total: ₱ {sumYearMonth}
+      </h2>
       <Filters />
       <div className="flex flex-row mt-2 gap-2 justify-between">
         <DialogContainer />
@@ -127,20 +134,6 @@ const getTransformedData = (mData: ExpensesRow[]) => {
 };
 
 const getStartEndDate = (year: string, month: string) => {
-  const ALL_MONTHS = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
   const monthNum = ALL_MONTHS.findIndex((elem) => elem === month) + 1;
   const lastDayOfDate = new Date(Number(year), monthNum, 0);
 
@@ -152,3 +145,18 @@ const getStartEndDate = (year: string, month: string) => {
     endDate,
   };
 };
+
+const ALL_MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
