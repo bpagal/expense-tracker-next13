@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { TransformedData } from '../../app/expenses/page';
 import ActionsPopover from '../ActionsPopover/ActionsPopover';
 
@@ -12,6 +13,9 @@ export default function ExpensesGrid({
 }: ExpensesGridProps) {
   return transformedExpensesData.map((elem) => {
     const formattedDate = new Date(elem.date).toDateString();
+    const totalAmount = elem.expenses.reduce((prevVal, currVal) => {
+      return prevVal + currVal.amount;
+    }, 0);
 
     return (
       <div
@@ -20,7 +24,7 @@ export default function ExpensesGrid({
       >
         <div className="grid grid-cols-[1fr,_auto]">
           <h2 className="font-semibold text-blue-600">{formattedDate}</h2>
-          <h2 className="font-semibold text-red-700 mb-2">₱ 5600</h2>
+          <h2 className="font-semibold text-red-700 mb-2">₱ {totalAmount}</h2>
         </div>
         {elem.expenses?.map((expense) => (
           <div
