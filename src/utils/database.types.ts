@@ -89,6 +89,10 @@ export interface Database {
         Args: Record<PropertyKey, never>;
         Returns: YearsMonths[];
       };
+      select_sum_year_month: {
+        Args: Record<'year' | 'month', string>;
+        Returns: number;
+      };
     };
     Enums: {
       [_ in never]: never;

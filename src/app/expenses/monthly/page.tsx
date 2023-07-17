@@ -28,6 +28,13 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const { data: yearsMonthsData } = await supabase.rpc(
     'select_distinct_years_months'
   );
+  const { data: sumYearMonth } = await supabase.rpc('select_sum_year_month', {
+    year: '2023',
+    month: '04',
+  });
+
+  console.log('💖💛💙💜💚 sumYearMonth');
+  console.log(typeof sumYearMonth);
 
   const { data: expensesData } = await supabase
     .from('expenses')
