@@ -22,7 +22,7 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const rangeFrom = page === 1 ? 0 : (page - 1) * PAGE_SIZE;
   const rangeTo = rangeFrom + (PAGE_SIZE - 1);
-  const currentDateFormatted = `selectedDate=${searchParams.year}`;
+  const currentDateFormatted = `year=${searchParams.year}&month=${searchParams.month}`;
   // TODO use this again
   const selectedDate = getStartEndDate(searchParams.year, searchParams.month);
   const { data: yearsMonthsData } = await supabase.rpc(
