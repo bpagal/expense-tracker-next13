@@ -85,8 +85,10 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
 
     return (
       <dialog ref={ref} className="w-[350px] bg-gray-950 text-white">
-        <h2 className="text-xl">{action.toUpperCase()}</h2>
         <form onSubmit={onSubmit} className="p-3">
+          <h2 className="font-semibold text-blue-600">
+            {action.toUpperCase()}
+          </h2>
           <div className="grid gap-y-3">
             <label htmlFor="details">Details</label>
             <textarea
@@ -106,6 +108,8 @@ export const ExpenseForm = forwardRef<HTMLDialogElement, ExpenseFormProps>(
               className="bg-gray-950 border border-gray-700 px-2 py-1 rounded-md focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               type="number"
               id="amount"
+              step="0.01"
+              min={1}
               {...register('amount', {
                 required: 'Amount is required',
               })}

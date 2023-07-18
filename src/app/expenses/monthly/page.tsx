@@ -75,10 +75,10 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
 
   return (
     <div className="mx-auto px-3 sm:container text-white">
-      <h2 className="text-xl text-red-700 font-semibold">
-        Total: ₱ {sumYearMonth}
-      </h2>
-      <Filters />
+      <div className="flex justify-between items-end">
+        <Filters />
+        <h2 className="text-red-700 font-semibold">Total: ₱ {sumYearMonth}</h2>
+      </div>
       <div className="flex flex-row mt-2 gap-2 justify-between">
         <DialogContainer />
         <div>
