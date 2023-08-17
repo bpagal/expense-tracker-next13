@@ -75,7 +75,15 @@ export default async function MonthlyExpensesPage({ searchParams }: PageProps) {
         <h2 className="text-red-700 font-semibold">Total: ₱ {sumYearMonth}</h2>
       </div>
       <div className="flex flex-row mt-2 gap-2 justify-between">
-        <DialogContainer />
+        <section>
+          <DialogContainer />
+          <Link
+            className="px-2 hover:underline"
+            href={`/expenses/monthly/chart?${currentDateFormatted}`}
+          >
+            Chart
+          </Link>
+        </section>
         <div>
           {page === 1 ? (
             <span className="px-2 py-1 text-gray-600 cursor-not-allowed">
