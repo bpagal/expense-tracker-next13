@@ -1,27 +1,30 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { YearsMonths } from '../../utils/database.types';
+
+export interface DropdownItems {
+  label: string;
+  value: number | string;
+}
 
 interface DropdownProps {
   // yearsMonths: YearsMonths[];
   label: string;
-  items: number[] | string[];
+  items: DropdownItems[];
   searchParams: {
-    activeParam: string;
     name: string;
     otherParams: string;
   };
+  btnInitialValue: string;
 }
 
 export default function DropdownLinks({
   items,
   label,
   searchParams,
+  btnInitialValue,
 }: DropdownProps) {
   const [isDropdownOpen, setOpenDropdown] = useState(false);
   const ref = useOutsideClick(() => {
@@ -45,7 +48,7 @@ export default function DropdownLinks({
         type="button"
         onClick={() => setOpenDropdown(true)}
       >
-        {searchParams.activeParam}
+        {btnInitialValue}
       </button>
       {isDropdownOpen && (
         <ul
@@ -53,16 +56,18 @@ export default function DropdownLinks({
           ref={ref}
         >
           {items.map((item) => (
-            <li key={item} className="px-2 py-1 menu-item hover:bg-gray-900">
+            <li
+              key={item.label}
+              className="px-2 py-1 menu-item hover:bg-gray-900"
+            >
               <Link
                 onClick={() => setOpenDropdown(false)}
-                // href={`/expenses/monthly?page=1&selectedDate=${elem}`}
                 href={{
                   href: '/expenses/monthly',
-                  search: `${searchParams.otherParams}&${searchParams.name}=${item}`,
+                  search: `${searchParams.otherParams}&${searchParams.name}=${item.value}`,
                 }}
               >
-                {item}
+                {item.label}
               </Link>
             </li>
           ))}

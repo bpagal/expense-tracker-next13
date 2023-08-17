@@ -1,18 +1,20 @@
 'use client';
 
-import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import DropdownLinks, { DropdownItems } from '../DropdownLinks/DropdownLinks';
 
-import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { YearsMonths } from '../../utils/database.types';
-import DropdownLinks from '../DropdownLinks/DropdownLinks';
+interface FiltersProps {
+  years: { years: string }[];
+}
 
-export default function Filters() {
+export default function Filters({ years }: FiltersProps) {
   const searchParams = useSearchParams();
   const paramYear = searchParams.get('year');
   const paramMonth = searchParams.get('month');
-  const years = ['2023', '2022', '2021', '2020'];
+  const yearsItems: DropdownItems[] = years.map((year) => ({
+    label: year.years,
+    value: year.years,
+  }));
   const months = [
     'January',
     'February',
@@ -27,26 +29,30 @@ export default function Filters() {
     'November',
     'December',
   ];
+  const monthsItems: DropdownItems[] = months.map((month, index) => ({
+    label: month,
+    value: index + 1,
+  }));
 
   return (
     <div className="flex gap-x-4">
       <DropdownLinks
-        items={years}
+        items={yearsItems}
         label="Year"
         searchParams={{
-          activeParam: paramYear ?? '',
           name: 'year',
           otherParams: `page=1&month=${paramMonth}`,
         }}
+        btnInitialValue={paramYear ?? ''}
       />
       <DropdownLinks
-        items={months}
+        items={monthsItems}
         label="Month"
         searchParams={{
-          activeParam: paramMonth ?? '',
           name: 'month',
           otherParams: `page=1&year=${paramYear}`,
         }}
+        btnInitialValue={months.at(Number(paramMonth) - 1) ?? ''}
       />
     </div>
   );

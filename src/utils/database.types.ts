@@ -93,6 +93,10 @@ export interface Database {
         Args: Record<'year' | 'month', string>;
         Returns: number;
       };
+      select_all_years: {
+        Args: Record<PropertyKey, never>;
+        Returns: { years: string }[];
+      };
     };
     Enums: {
       [_ in never]: never;
