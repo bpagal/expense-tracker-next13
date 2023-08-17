@@ -3,7 +3,6 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database, ExpensesRow } from '../../utils/database.types';
 import Link from 'next/link';
 import { DialogContainer } from '../../components/ExpenseForm/DialogContainer';
-import ActionsPopover from '../../components/ActionsPopover/ActionsPopover';
 import ExpensesGrid from '../../components/ExpensesGrid/ExpensesGrid';
 
 const PAGE_SIZE = 20;

@@ -1,6 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
 import { TransformedData } from '../../app/expenses/page';
 import ActionsPopover from '../ActionsPopover/ActionsPopover';
 
