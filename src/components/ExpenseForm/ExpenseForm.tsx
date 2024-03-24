@@ -205,4 +205,5 @@ const CATEGORIES = [
   'Others/Miscellaneous',
   'Transport Commute',
   'Sunlife insurance',
+  'Travel',
 ];
